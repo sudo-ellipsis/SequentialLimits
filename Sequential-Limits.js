@@ -37,7 +37,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_1=" + geta1(level).toString(0); //returns the value seen in the description as a1 = <level>
         let getInfo = (level) => "a_1=" + geta1(level).toString(0); //returns the value seen in the info box as a1 = <level>
-        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.605*Math.log2(10)))); //0'th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
+        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.360*Math.log2(10)))); //0'th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
         a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level)); //for the value of a1 in the description
         a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -46,7 +46,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_2=2^{" + level + "}"; //returns the value seen in the description as a2 = 2^<level>.
         let getInfo = (level) => "a_2=" + geta2(level).toString(0); //returns the value seen in the info box as a2 = <level>
-        a2 = theory.createUpgrade(1, currency, new ExponentialCost(100, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
+        a2 = theory.createUpgrade(1, currency, new ExponentialCost(250, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
         a2.getDescription = (_) => Utils.getMath(getDesc(a2.level));  //for the value of a2 in the description
         a2.getInfo = (amount) => Utils.getMathTo(getInfo(a2.level), getInfo(a2.level + amount)); //for the values of a2 when you hold I(nfo) and you have [current]->[next]
     }
@@ -55,7 +55,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the description as b1 = <level>
         let getInfo = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the info box as b1 = <level>
-        b1 = theory.createUpgrade(2, currency, new ExponentialCost(1000, 0.525*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+        b1 = theory.createUpgrade(2, currency, new ExponentialCost(1000, 0.655*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
         b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level)); //for the value of b1 in the description
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -64,7 +64,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_2=2^{" + level + "}"; //returns the value seen in the description as b2 = 2^<level>
         let getInfo = (level) => "b_2=" + getb2(level).toString(0); //returns the value seen in the info box as b2 = <level>
-        b2 = theory.createUpgrade(3, currency, new ExponentialCost(2500, 0.715*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
+        b2 = theory.createUpgrade(3, currency, new ExponentialCost(2500, 0.935*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
         b2.getDescription = (_) => Utils.getMath(getDesc(b2.level));  //for the value of a2 in the description
         b2.getInfo = (amount) => Utils.getMathTo(getInfo(b2.level), getInfo(b2.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -81,32 +81,32 @@ var init = () => {
 
     //milestone 1
     {
-        gamma0 = theory.createMilestoneUpgrade(0, 2); //create an upgrade of ID 0 and max level 3 [this is gamma0]
-        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.02"); //set desc as localisation of "increases rho_2 exponent by 0.02"
-        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.02"); //basically the same but for info button
+        gamma0 = theory.createMilestoneUpgrade(0, 3); //create an upgrade of ID 0 and max level 3 [this is gamma0]
+        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.01"); //set desc as localisation of "increases rho_2 exponent by 0.01"
+        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.01"); //basically the same but for info button
         gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation(); //if bought/refunded, force a refresh of the equation
     }
 
     //milestone 2
     //TODO change it to a localisation of decreases lol
     {
-        gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 3 [this is gamma1]
-        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.004"); //set desc as localisation of "decreases a3 by 0.004"
-        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.004"); //basically the same but for info button
+        gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5 [this is gamma1]
+        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.008"); //set desc as localisation of "decreases a3 by 0.008"
+        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.008"); //basically the same but for info button
         gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
     
     //milestone 3
     {
-        gamma2 = theory.createMilestoneUpgrade(2, 3); //create an upgrade of ID 2 and max level 4 [this is gamma2]
-        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.01"); //set desc as localisation of "increases b1 exponent by 0.01"
-        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.01"); //basically the same but for info button
+        gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 4 [this is gamma2]
+        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); //set desc as localisation of "increases b1 exponent by 0.01"
+        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.02"); //basically the same but for info button
         gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
 
     //milestone 4
     {
-        gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 4 [this is gamma3]
+        gamma3 = theory.createMilestoneUpgrade(3, 4); //create an upgrade of ID 3 and max level 4 [this is gamma3]
         gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.01"); //set desc as localisation of "increases b2 exponent by 0.01""
         gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.01"); //basically the same but for info button
         gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
@@ -169,7 +169,7 @@ var tick = (elapsedTime, multiplier) => {
 
     let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
     
-    rho3dot = (getb1(b1.level).pow(BigNumber.ONE + gamma2.level*BigNumber.From(0.01)) * getb2(b2.level).pow(BigNumber.ONE + gamma3.level*BigNumber.From(0.01))); //rho3dot is equal to b1.value * b2.value accounting for exponenents
+    rho3dot = (getb1(b1.level).pow(BigNumber.ONE + gamma2.level*BigNumber.From(0.02)) * getb2(b2.level).pow(BigNumber.ONE + gamma3.level*BigNumber.From(0.01))); //rho3dot is equal to b1.value * b2.value accounting for exponenents
     currency3.value += rho3dot*dt; //increase currency3.value by rho3dot*dt
     
     let two_pi_rho = BigNumber.TWO * BigNumber.PI * currency3.value; //precalculation of values for tick function
@@ -183,9 +183,9 @@ var tick = (elapsedTime, multiplier) => {
     //rho2dot equation that supports higher values without crashing lol
     let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO-gamma1.level*0.004).log() * (currency3.value + t).log() ) : BigNumber.ZERO;
+    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO-gamma1.level*0.008).log() * (currency3.value + t).log() ) : BigNumber.ZERO;
     currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
-    rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level*BigNumber.from(0.03))).sqrt()*(inverseE_Gamma); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
+    rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level*0.01).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
     
     if (0 < a1.level){
@@ -235,19 +235,21 @@ var getSecondaryEquation = () => {
         case 2:
             result+= "^{\\!1.04}\\!";
             break;
-        case 3:
-            result+= "^{\\!1.06}\\!";
-            break;
     }
     result += "b_2"; //add b2 
     switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
         case 1:
-            result+= "^{\\!1.02}\\!";
+            result+= "^{\\!1.01}\\!";
             break;
         case 2:
-            result+= "^{\\!1.04}\\!";
+            result+= "^{\\!1.02}\\!";
             break;
-
+        case 3:
+            result+= "^{\\!1.03}\\!";
+            break;
+        case 4:
+            result+= "^{\\!1.04}\\!";
+            break;    
     }
     result += "\\qquad "; //add a space
 
@@ -258,19 +260,19 @@ var getSecondaryEquation = () => {
             result += "2";
             break;
         case 1:
-            result += "1.996";
-            break;
-        case 2:
             result += "1.992";
             break;
-        case 3:
-            result += "1.988";
-            break;
-        case 4:
+        case 2:
             result += "1.984";
             break;
+        case 3:
+            result += "1.976";
+            break;
+        case 4:
+            result += "1.968";
+            break;
         case 5:
-            result += "1.98";
+            result += "1.96";
             break;            
     }
     });
