@@ -1,0 +1,72 @@
+hotfix 14/1/22
+various small changes to equation appearance
+minor bugfixes
+
+release candidate 21/12/21
+
+added some more tertiary renderer options into comments
+changed secondary eq scale
+
+release candidate 1 19/11/21
+changed name and description
+
+beta-6 19/12/21
+final major rebalance
+fixed a bug at 1.78e308 inverseE_Gamma that javascript got rather unhappy with
+many, many bugfixes
+cleaned up some old commented-out code
+fix minor issue with secondary eq
+
+beta-5a 18/12/21
+minor rebalance, specifically to boost first publication by a lot
+
+beta-5 18/12/21
+major rebalance, yet to test.
+used a custom description for milestone 2 (thanks, gilles! :P)
+added another protection for inverseE_Gamma to hopefully prevent all the sooks thrown on boot
+
+beta-4b 15/12/21
+fixed a save/load bug with inverseE_Gamma not being globally defined and not being saved/loaded
+minor rebalance to make early progress less awful, not an actual fix to the balancing yet
+minor text updates
+
+beta-4a 14/12/21
+fixed rho2dot equation by xelaroc
+minor edit to text in the publication window
+minor permanent upgrade rebalances
+minor tertiary equation updates
+
+beta-4 13/12/21
+rebalance to make theory progress more tolerable and nerf milestone power in favour of a more palatable progression
+fixed some minor renderer issues
+
+beta-3 12-13/12/21
+huge rebalancing to majorly increase milestone power, comes with drawbacks regarding progression speed.
+switched to using xelaroc's reimplmentation of the rho2dot equation to support high values
+
+beta-2a: 12/12/21
+hotfix to change some minor tertiary rendering,
+
+beta-2: 12/12/21
+added new achievements based on gamma and pulibcations
+added 2 secret achievements
+added new progression story chapters and some plotline
+edited some documentation to accurately reflect in-game values
+
+beta-1c: 12/12/21
+hotfix to fix divergence due to leaving in bonuses and tertiary equation rendering
+
+beta-1b: 11/12/21
+hotfix to fix tertiary eqn render error on open and swap value models to be correct
+also set rho dots as big numbers
+
+beta-1a: 11/12/21
+hotfix to fix parse error on open and documentation
+
+beta-1: 11/12/21
+Balanced theory milestones, values and costs
+added achievements 0-4 and secret achievement 1
+Implemented new approximations for stability
+
+alpha: 9/12/21
+private release to test latex and basic stability
