@@ -21,7 +21,7 @@ var gamma0, gamma1, gamma2, gamma3; //create 4 variables that i'll use for miles
 var rho1dot = BigNumber.ZERO, rho2dot = BigNumber.ZERO, rho3dot = BigNumber.ZERO; //used as drho's
 var inverseE_Gamma; //used for the approximation of e
 var E_Gamma; //used for the display of 
-var t = BigNumber.ONE; //time in seconds
+//var t = BigNumber.ONE; //time in seconds
 
 currency3.value = 1; //set rho3 to 1 to avoid a div by 0 error lol
 theory.primaryEquationHeight = 70; //set height of primary equation
@@ -183,14 +183,14 @@ var tick = (elapsedTime, multiplier) => {
     //rho2dot equation that supports higher values without crashing lol
     let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO-gamma1.level*0.008).log() * (currency3.value + t).log() ) : BigNumber.ZERO;
+    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.TWO-gamma1.level*0.008).log() * (currency3.value).log() ) : BigNumber.ZERO;
     currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
     rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level*0.01).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
     
-    if (0 < a1.level){
-        t += elapsedTime;
-    }
+    // if (0 < a1.level){
+    //     t += elapsedTime;
+    // }
 
     theory.invalidateTertiaryEquation();
     
@@ -224,7 +224,7 @@ var getSecondaryEquation = () => {
     let result = "";
     profilers.exec("renderSecondary", () =>  {
     //render rho2dot equation
-    result += "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln(\\rho_3\\, + \\,t)}\\qquad "; //static, doesn't need to change. plain latex
+    result += "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\qquad "; //static, doesn't need to change. plain latex
 
 
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
@@ -284,7 +284,7 @@ var getSecondaryEquation = () => {
 var getTertiaryEquation = () => {
     let result = ""; //blank for profiler reasons, as it doesn't support returns
 //    profilers.exec("renderTertiary", () =>  { //check how long it takes to render the tertiary eq every tick
-//    result += theory.latexSymbol + "= \\max{\\rho_1}^{0.1}, \\; "; //tau_x = max rho, then move to next segment of matrix
+   result += theory.latexSymbol + "= \\max{\\rho_1}^{0.1}, \\; "; //tau_x = max rho, then move to next segment of matrix
 
     //black magic, probably
     result += "e - \\gamma = ";
@@ -301,7 +301,7 @@ else {
     result += ", \\;\\dot{\\rho}_3 = "; //display rho3dot to a degree of granularity depending on its size, then move to next segment 
     result += rho3dot.toString(3);
 
-    result += ",\\; t = " + t.toString(1);
+//    result += ",\\; t = " + t.toString(1);
     
 //    }); //end of profiler log
     return result ; //return the sum of text    
@@ -336,7 +336,7 @@ var postPublish = ()  => {
     theory.invalidatePrimaryEquation(); 
     theory.invalidateSecondaryEquation();
     theory.invalidateTertiaryEquation();
-    t = 0; //set time since publish to 0
+//    t = BigNumber.Zero; //set time since publish to 0
 
     //set rho3 to 1 to avoid div/0 errors (hopefully)
     currency3.value = BigNumber.ONE;
