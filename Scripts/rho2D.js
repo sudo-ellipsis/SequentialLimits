@@ -27,7 +27,7 @@ while (true) {
     "game.buy(theory.permanentUpgrades)\n" +
     "hasPublished = false\n" +
     "if(theory.milestonesUnused > 0){\n" +
-    "let m = [1,1,1,4,4,4,4,3,3,2,2,2,2,2]\n" +
+    "let m = [1,1,1,3,3,4,4,4,4,2,2,2,2,2]\n" +
     "theory.milestoneUpgrades[m[theory.milestonesTotal-1]-1].buy(1)}\n" +
 
     "if (theory.isPublicationAvailable) {\n" +
@@ -42,6 +42,11 @@ while (true) {
   if (remote("hasPublished") == "true") {
     log(getTimeString(totalTime) + tauAtPub)
     tickLength = 1
+    for (let i = 0 ; i < 120; ++i) {
+        remote("theory.upgrades[0].buy(-1)\n" +
+               "theory.upgrades[1].buy(-1)\n" +
+               "theory.tick(1, 1)")
+    }
   }
   if (remote("theory.milestonesUnused > 0") == "true") {
     while (remote("theory.milestonesUnused > 0") == "true") {
