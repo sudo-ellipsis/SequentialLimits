@@ -116,7 +116,7 @@ var init = () => {
     //TODO ADD ACHIEVEMENTS [10 mainline ~4 secret]
     var AchievementCat0 = theory.createAchievementCategory(0, "Miscellaneous");
     var AchievementCat1 = theory.createAchievementCategory(1, "Publications");
-    var AchievementCat2 = theory.createAchievementCategory(2, "Precision");
+    var AchievementCat2 = theory.createAchievementCategory(2, "Approximation Precision");
     var AchievementCat3  = theory.createAchievementCategory(3, "Secret Achievements");
     achievement6 = theory.createAchievement(5, AchievementCat0, "Purchase Optimisation", "Outsource the actual buying of variables to your students", () => theory.autoBuyerUpgrade > 0); //award an achievement for unlocking the autobuyer
     
@@ -131,13 +131,13 @@ var init = () => {
     achievement7 = theory.createAchievement(6, AchievementCat2, "Close Enough", "Get your approximation of e to 10^-1 off true", () => inverseE_Gamma >= BigNumber.From("1e0"));
     achievement8 = theory.createAchievement(7, AchievementCat2, "Nitpicking Exercise", "Get your approximation of e to 10^-5 off true", () => inverseE_Gamma >= BigNumber.From("1e5"));
     achievement9 = theory.createAchievement(8, AchievementCat2, "Splitting Hairs", "Get your approximation of e to 10^-10 off true", () => inverseE_Gamma >= BigNumber.From("1e10"));
-    achievement10 = theory.createAchievement(9, AchievementCat2, "Microscopic", "Get your approximation of e to 10^-25 off true", () => inverseE_Gamma >= BigNumber.From("1e25"));
-    achievement11 = theory.createAchievement(10, AchievementCat2, "Are We There Yet?", "Get your approximation of e to 10^-50 off true", () => inverseE_Gamma >= BigNumber.From("1e50"));
-    achievement12 = theory.createAchievement(11, AchievementCat2, "Subatomic", "Get your approximation of e to 10^-75 off true", () => inverseE_Gamma >= BigNumber.From("1e75"));
-    achievement13 = theory.createAchievement(12, AchievementCat2, "Planck Pettiness", "Get your approximation of e to 10^-100 off true", () => inverseE_Gamma >= BigNumber.From("1e100"));
-    achievement14 = theory.createAchievement(13, AchievementCat2, "Precision Player", "Get your approximation of e to 10^-250 off true", () => inverseE_Gamma >= BigNumber.From("1e250"));
-    achievement15 = theory.createAchievement(14, AchievementCat2, "Running Out Of Room", "Get your approximation of e to 10^-500 off true", () => inverseE_Gamma >= BigNumber.From("1e500"));
-    achievement16 = theory.createAchievement(15, AchievementCat2, "You Can Stop Anytime", "Get your approximation of e to 10^-750 off true", () => inverseE_Gamma >= BigNumber.From("1e750"));
+    achievement10 = theory.createAchievement(9, AchievementCat2, "Microscopic", "Get your approximation of e to 10^-15 off true", () => inverseE_Gamma >= BigNumber.From("1e15"));
+    achievement12 = theory.createAchievement(10, AchievementCat2, "Subatomic", "Get your approximation of e to 10^-25 off true", () => inverseE_Gamma >= BigNumber.From("1e25"));
+    achievement13 = theory.createAchievement(11, AchievementCat2, "Planck Pettiness", "Get your approximation of e to 10^-35 off true", () => inverseE_Gamma >= BigNumber.From("35"));
+    achievement11 = theory.createAchievement(12, AchievementCat2, "Are We There Yet?", "Get your approximation of e to 10^-50 off true", () => inverseE_Gamma >= BigNumber.From("1e50"));
+    achievement14 = theory.createAchievement(13, AchievementCat2, "Precision Player", "Get your approximation of e to 10^-100 off true", () => inverseE_Gamma >= BigNumber.From("1e100"));
+    achievement15 = theory.createAchievement(14, AchievementCat2, "Running Out Of Room", "Get your approximation of e to 10^-250 off true", () => inverseE_Gamma >= BigNumber.From("1e250"));
+    achievement16 = theory.createAchievement(15, AchievementCat2, "You Can Stop Anytime", "Get your approximation of e to 10^-500 off true", () => inverseE_Gamma >= BigNumber.From("1e500"));
     
     //TODO ADD ~5 ACHIEVEMENTS BASED ON FUNNY RHO1 NUMBERS
     //69, 420, 666, 777, 1000
