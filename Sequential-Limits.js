@@ -41,7 +41,6 @@ var init = () => {
         a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level)); //for the value of a1 in the description
         a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
-    Utils.getMath
     // a2
     {
         let getDesc = (level) => "a_2=2^{" + level + "}"; //returns the value seen in the description as a2 = 2^<level>.
@@ -71,13 +70,13 @@ var init = () => {
 
     
     // Permanent Upgrades
-    theory.createPublicationUpgrade(0, currency, 1e10 ); //unlock publications at 1e10 currency
+    theory.createPublicationUpgrade(0, currency, 1e20 ); //unlock publications at 1e10 currency
     theory.createBuyAllUpgrade(1, currency, 1e30); //unlock buy all at 1e30 currency
     theory.createAutoBuyerUpgrade(2, currency, 1e50); //unlock autobuyer at 1e50 currency
 
 
     //// Milestone Upgrades
-    theory.setMilestoneCost(new LinearCost(25, 25)); //c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)
+    theory.setMilestoneCost(new LinearCost(2.5, 2.5)); //c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)
 
     //milestone 1
     {
@@ -355,7 +354,7 @@ var setInternalState = (state) => { //set the internal state of values that need
 var getInternalState = () => `${numPublishes} ${inverseE_Gamma}` //return the data saved
 
 
-var getPublicationMultiplier = (tau) => tau.pow(0.15); //publication mult bonus is (tau^0.15)*100
+var getPublicationMultiplier = (tau) => tau.pow(1.5); //publication mult bonus is (tau^0.15)*100
 var getPublicationMultiplierFormula = (symbol) => /*"10 · " +*/ symbol + "^{0.15}"; //text to render for publication mult ext
 var getTau = () => currency.value.pow(1/10); //get the tau value from currency1
 var get2DGraphValue = () => (BigNumber.ONE + currency.value.abs()).log10().toNumber(); //renders the graph based on currency 1
