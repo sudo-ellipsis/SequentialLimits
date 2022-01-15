@@ -1,5 +1,6 @@
 balance theory so that active strategies don't break it
 redo achievements to fit balance
+add achievement categories (let c1 = theory.createAchievementCategory(0, "Category 1") // theory.createAchievement(2, c1, "Achievement 3", "desc3", () => false))
 redo description
 clean out old commented debug code
 add story chapters that further the chosen narrative and achievements that aren't progression based (secret focused)
