@@ -1,7 +1,6 @@
 balance theory so that active strategies don't break it
-redo achievements to fit balance
-add achievement categories (let c1 = theory.createAchievementCategory(0, "Category 1") // theory.createAchievement(2, c1, "Achievement 3", "desc3", () => false))
-redo description
+add new achievements 
+add new secret achivements (autobuy all pub, leave autobuy off for an hour after a pub, tap the equation 100 times, "careful consideration" - leave disable autobuying a variable)
 clean out old commented debug code
 add story chapters that further the chosen narrative and achievements that aren't progression based (secret focused)
 find a mathematical-concept name to fit with the rest of the game

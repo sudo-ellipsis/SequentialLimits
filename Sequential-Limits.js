@@ -70,9 +70,9 @@ var init = () => {
 
     
     // Permanent Upgrades
-    theory.createPublicationUpgrade(0, currency, 1e15 ); //unlock publications at 1e10 currency
-    theory.createBuyAllUpgrade(1, currency, 1e30); //unlock buy all at 1e30 currency
-    theory.createAutoBuyerUpgrade(2, currency, 1e50); //unlock autobuyer at 1e50 currency
+    theory.createPublicationUpgrade(0, currency, 1e10 ); //unlock publications at 1e10 currency
+    theory.createBuyAllUpgrade(1, currency, 1e15); //unlock buy all at 1e30 currency
+    theory.createAutoBuyerUpgrade(2, currency, 1e20); //unlock autobuyer at 1e50 currency
 
 
     //// Milestone Upgrades
