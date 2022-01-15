@@ -54,7 +54,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the description as b1 = <level>
         let getInfo = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the info box as b1 = <level>
-        b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.655*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+        b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.65*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
         b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level)); //for the value of b1 in the description
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -217,6 +217,7 @@ var getPrimaryEquation = () => { //text for the primary equation
 
     //show the approximated value equation
     result += "\\qquad \\gamma = \\frac{\\rho_3}{\\sqrt[^{\\rho_3}]{\\rho_3 !}}";
+    result += "\\qquad" + theory.latexSymbol + "= \\max{\\rho_1}^{0.1}"; 
     return result; //return the sum of text
 }   
 
@@ -286,7 +287,7 @@ var getSecondaryEquation = () => {
 var getTertiaryEquation = () => {
     let result = ""; //blank for profiler reasons, as it doesn't support returns
 //    profilers.exec("renderTertiary", () =>  { //check how long it takes to render the tertiary eq every tick
-   result += theory.latexSymbol + "= \\max{\\rho_1}^{0.1}, \\; "; //tau_x = max rho, then move to next segment of matrix
+//tau_x = max rho, then move to next segment of matrix
 
     //black magic, probably
     result += "e - \\gamma = ";
