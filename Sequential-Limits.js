@@ -37,7 +37,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_1=" + geta1(level).toString(0); //returns the value seen in the description as a1 = <level>
         let getInfo = (level) => "a_1=" + geta1(level).toString(0); //returns the value seen in the info box as a1 = <level>
-        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.360*Math.log2(10)))); //0'th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
+        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.361*Math.log2(10)))); //0'th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
         a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level)); //for the value of a1 in the description
         a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -45,7 +45,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_2=2^{" + level + "}"; //returns the value seen in the description as a2 = 2^<level>.
         let getInfo = (level) => "a_2=" + geta2(level).toString(0); //returns the value seen in the info box as a2 = <level>
-        a2 = theory.createUpgrade(1, currency, new ExponentialCost(150, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
+        a2 = theory.createUpgrade(1, currency, new ExponentialCost(300, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
         a2.getDescription = (_) => Utils.getMath(getDesc(a2.level));  //for the value of a2 in the description
         a2.getInfo = (amount) => Utils.getMathTo(getInfo(a2.level), getInfo(a2.level + amount)); //for the values of a2 when you hold I(nfo) and you have [current]->[next]
     }
@@ -54,7 +54,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the description as b1 = <level>
         let getInfo = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the info box as b1 = <level>
-        b1 = theory.createUpgrade(2, currency, new ExponentialCost(250, 0.65*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+        b1 = theory.createUpgrade(2, currency, new ExponentialCost(750, 0.653*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
         b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level)); //for the value of b1 in the description
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -63,7 +63,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_2=2^{" + level + "}"; //returns the value seen in the description as b2 = 2^<level>
         let getInfo = (level) => "b_2=" + getb2(level).toString(0); //returns the value seen in the info box as b2 = <level>
-        b2 = theory.createUpgrade(3, currency, new ExponentialCost(500, 0.926*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
+        b2 = theory.createUpgrade(3, currency, new ExponentialCost(1500, 0.925*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
         b2.getDescription = (_) => Utils.getMath(getDesc(b2.level));  //for the value of a2 in the description
         b2.getInfo = (amount) => Utils.getMathTo(getInfo(b2.level), getInfo(b2.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -369,9 +369,9 @@ var getPublicationMultiplierFormula = (symbol) => /*"10 · " +*/ symbol + "^{1.5
 var getTau = () => currency.value.pow(1/10); //get the tau value from currency1
 var get2DGraphValue = () => (BigNumber.ONE + currency.value.abs()).log10().toNumber(); //renders the graph based on currency 1
 
-var geta1 = (level) => Utils.getStepwisePowerSum(level, 3.5, 3, 0); //get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0 
+var geta1 = (level) => Utils.getStepwisePowerSum(level, 5.2, 3, 0); //get the value of the variable from a power sum with a level of <level>, a base of 2, a step length of 5 and an initial value of 0 
 var geta2 = (level) => BigNumber.TWO.pow(level); //get the value of the variable from a power of 2^level
-var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0); //get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
+var getb1 = (level) => Utils.getStepwisePowerSum(level, 3.2, 4, 0); //get the value of the variable from a power sum with a level of <level>, a base of 3, a step length of 2 and an initial value of 0
 var getb2 = (level) => BigNumber.TWO.pow(level); //get the value of the variable from a power of 2^level
 
 
