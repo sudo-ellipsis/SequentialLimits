@@ -56,5 +56,5 @@ while (true) {
   }
   tauAtPub = currency
   totalTime += tickLength
-  tickLength = Math.min(180, tickLength*1.2)
+  tickLength = Math.min(360, tickLength*1.25)
 }
