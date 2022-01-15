@@ -45,7 +45,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_2=2^{" + level + "}"; //returns the value seen in the description as a2 = 2^<level>.
         let getInfo = (level) => "a_2=" + geta2(level).toString(0); //returns the value seen in the info box as a2 = <level>
-        a2 = theory.createUpgrade(1, currency, new ExponentialCost(200, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
+        a2 = theory.createUpgrade(1, currency, new ExponentialCost(150, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
         a2.getDescription = (_) => Utils.getMath(getDesc(a2.level));  //for the value of a2 in the description
         a2.getInfo = (amount) => Utils.getMathTo(getInfo(a2.level), getInfo(a2.level + amount)); //for the values of a2 when you hold I(nfo) and you have [current]->[next]
     }
@@ -54,7 +54,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the description as b1 = <level>
         let getInfo = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the info box as b1 = <level>
-        b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.65*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+        b1 = theory.createUpgrade(2, currency, new ExponentialCost(250, 0.65*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
         b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level)); //for the value of b1 in the description
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -63,7 +63,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_2=2^{" + level + "}"; //returns the value seen in the description as b2 = 2^<level>
         let getInfo = (level) => "b_2=" + getb2(level).toString(0); //returns the value seen in the info box as b2 = <level>
-        b2 = theory.createUpgrade(3, currency, new ExponentialCost(1000, 0.93*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
+        b2 = theory.createUpgrade(3, currency, new ExponentialCost(500, 0.926*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
         b2.getDescription = (_) => Utils.getMath(getDesc(b2.level));  //for the value of a2 in the description
         b2.getInfo = (amount) => Utils.getMathTo(getInfo(b2.level), getInfo(b2.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
