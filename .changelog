@@ -1,3 +1,11 @@
+release candidate 2 15/01/22
+rebalanced theory upgrade costs and power
+changed achievement text and requirements to suit rebalances
+added script examples for simple simulation in /scripts
+added old, previous beta versions for archival purposes
+changed the tau to rho^0.1 in anticipation of official release
+fixed numerous bugs
+
 hotfix 14/1/22
 various small changes to equation appearance
 minor bugfixes
