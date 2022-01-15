@@ -42,7 +42,7 @@ while (true) {
   if (remote("hasPublished") == "true") {
     log(getTimeString(totalTime) + tauAtPub)
     tickLength = 1
-    for (let i = 0 ; i < 120; ++i) {
+    for (let i = 0 ; i < 360; ++i) {
         remote("theory.upgrades[0].buy(-1)\n" +
                "theory.upgrades[1].buy(-1)\n" +
                "theory.tick(1, 1)")
