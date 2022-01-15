@@ -358,7 +358,7 @@ var getInternalState = () => `${numPublishes} ${inverseE_Gamma}` //return the da
 
 
 var getPublicationMultiplier = (tau) => tau.pow(1.5); //publication mult bonus is (tau^0.15)*100
-var getPublicationMultiplierFormula = (symbol) => /*"10 · " +*/ symbol + "^{0.15}"; //text to render for publication mult ext
+var getPublicationMultiplierFormula = (symbol) => /*"10 · " +*/ symbol + "^{1.5}"; //text to render for publication mult ext
 var getTau = () => currency.value.pow(1/10); //get the tau value from currency1
 var get2DGraphValue = () => (BigNumber.ONE + currency.value.abs()).log10().toNumber(); //renders the graph based on currency 1
 
