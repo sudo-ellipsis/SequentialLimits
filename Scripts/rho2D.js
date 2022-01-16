@@ -19,7 +19,7 @@ let tauAtPub = 0
 
 while (true) {
   let currency = remote(
-    "theory.tick(" + tickLength + ",1)\n" +
+    "theory.tick(" + tickLength + ",1.5)\n" +
     "theory.upgrades[1].buy(-1)\n" +
     "theory.upgrades[3].buy(-1)\n" +
     "theory.upgrades[0].buy(-1)\n" +
