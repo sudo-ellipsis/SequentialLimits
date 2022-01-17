@@ -37,7 +37,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_1=" + geta1(level).toString(0); //returns the value seen in the description as a1 = <level>
         let getInfo = (level) => "a_1=" + geta1(level).toString(0); //returns the value seen in the info box as a1 = <level>
-        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.360*Math.log2(10)))); //0'th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
+        a1 = theory.createUpgrade(0, currency, new FirstFreeCost(new ExponentialCost(1, 0.361*Math.log2(10)))); //0'th upgrade in the list - first cost is 0, other costs are 10 * 2^(3*level), costs currency1
         a1.getDescription = (amount) => Utils.getMath(getDesc(a1.level)); //for the value of a1 in the description
         a1.getInfo = (amount) => Utils.getMathTo(getInfo(a1.level), getInfo(a1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -45,7 +45,7 @@ var init = () => {
     {
         let getDesc = (level) => "a_2=2^{" + level + "}"; //returns the value seen in the description as a2 = 2^<level>.
         let getInfo = (level) => "a_2=" + geta2(level).toString(0); //returns the value seen in the info box as a2 = <level>
-        a2 = theory.createUpgrade(1, currency, new ExponentialCost(150, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
+        a2 = theory.createUpgrade(1, currency, new ExponentialCost(300, Math.log2(10))); //1st upgrade in the list - costs are 5*10^level, costs currency1
         a2.getDescription = (_) => Utils.getMath(getDesc(a2.level));  //for the value of a2 in the description
         a2.getInfo = (amount) => Utils.getMathTo(getInfo(a2.level), getInfo(a2.level + amount)); //for the values of a2 when you hold I(nfo) and you have [current]->[next]
     }
@@ -54,7 +54,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the description as b1 = <level>
         let getInfo = (level) => "b_1=" + getb1(level).toString(0); //returns the value seen in the info box as b1 = <level>
-        b1 = theory.createUpgrade(2, currency, new ExponentialCost(250, 0.65*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
+        b1 = theory.createUpgrade(2, currency, new ExponentialCost(500, 0.65*Math.log2(10))); //2nd upgrade in the list - costs are 100 + 10^level, costs currency1
         b1.getDescription = (amount) => Utils.getMath(getDesc(b1.level)); //for the value of b1 in the description
         b1.getInfo = (amount) => Utils.getMathTo(getInfo(b1.level), getInfo(b1.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -63,7 +63,7 @@ var init = () => {
     {
         let getDesc = (level) => "b_2=2^{" + level + "}"; //returns the value seen in the description as b2 = 2^<level>
         let getInfo = (level) => "b_2=" + getb2(level).toString(0); //returns the value seen in the info box as b2 = <level>
-        b2 = theory.createUpgrade(3, currency, new ExponentialCost(500, 0.926*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
+        b2 = theory.createUpgrade(3, currency, new ExponentialCost(100, 0.926*Math.log2(10))); //3rd upgrade in the list - costs are 3*10^(3*level), costs currency1
         b2.getDescription = (_) => Utils.getMath(getDesc(b2.level));  //for the value of a2 in the description
         b2.getInfo = (amount) => Utils.getMathTo(getInfo(b2.level), getInfo(b2.level + amount)); //for the values of a1 when you hold I(nfo) and you have [current]->[next]
     }
@@ -133,18 +133,23 @@ var init = () => {
     achievement9 = theory.createAchievement(8, AchievementCat2, "Splitting Hairs", "Get your approximation of e to 10^-10 off true", () => inverseE_Gamma >= BigNumber.From("1e10"));
     achievement10 = theory.createAchievement(9, AchievementCat2, "Microscopic", "Get your approximation of e to 10^-15 off true", () => inverseE_Gamma >= BigNumber.From("1e15"));
     achievement12 = theory.createAchievement(10, AchievementCat2, "Subatomic", "Get your approximation of e to 10^-25 off true", () => inverseE_Gamma >= BigNumber.From("1e25"));
-    achievement13 = theory.createAchievement(11, AchievementCat2, "Planck Pettiness", "Get your approximation of e to 10^-35 off true", () => inverseE_Gamma >= BigNumber.From("35"));
+    achievement13 = theory.createAchievement(11, AchievementCat2, "Planck Pettiness", "Get your approximation of e to 10^-35 off true", () => inverseE_Gamma >= BigNumber.From("1e35"));
     achievement11 = theory.createAchievement(12, AchievementCat2, "Are We There Yet?", "Get your approximation of e to 10^-50 off true", () => inverseE_Gamma >= BigNumber.From("1e50"));
     achievement14 = theory.createAchievement(13, AchievementCat2, "Precision Player", "Get your approximation of e to 10^-100 off true", () => inverseE_Gamma >= BigNumber.From("1e100"));
     achievement15 = theory.createAchievement(14, AchievementCat2, "Running Out Of Room", "Get your approximation of e to 10^-250 off true", () => inverseE_Gamma >= BigNumber.From("1e250"));
-    achievement16 = theory.createAchievement(15, AchievementCat2, "You Can Stop Anytime", "Get your approximation of e to 10^-500 off true", () => inverseE_Gamma >= BigNumber.From("1e500"));
+    achievement16 = theory.createAchievement(15, AchievementCat2, "You Can Stop Now", "Get your approximation of e to 10^-500 off true", () => inverseE_Gamma >= BigNumber.From("1e500"));
     
     //TODO ADD ~5 ACHIEVEMENTS BASED ON FUNNY RHO1 NUMBERS
     //69, 420, 666, 777, 1000
 
-    achievement21 = theory.createSecretAchievement(20, AchievementCat3,"What's 9 + 10?", "21", "October 9th, 2021", () => a1.level == 9 && a2.level == 10 );
-    achievement22 = theory.createSecretAchievement(21, AchievementCat3, "Pattern Fanatic", "Have every variable level the same", "Getting Religous", () => a1.level == a2.level && a1.level == b1.level && a1.level == b2.level && a1.level >= 3);
+   // achievement21 = theory.createSecretAchievement(20, AchievementCat3,"What's 9 + 10?", "21", "October 9th, 2021", () => a1.level == 9 && a2.level == 10 );
+    achievement22 = theory.createSecretAchievement(21, AchievementCat3, "Pattern Fanatic", "Have every variable level the same", "Angelic", () => a1.level == a2.level && a1.level == b1.level && a1.level == b2.level && a1.level >= 3);
     achievement23 = theory.createSecretAchievement(22, AchievementCat3, "l33t5p34k", "1 3 3 7", "Elite", () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
+    
+    // achievement24 = theory.createSecretAchievement(23, "On Vacation","Keep autobuy on all publication","", () => false);
+    // achievement25 = theory.createSecretAchievement(24, "Oops","Don't buy anything for an hour after a publication","", () => false);
+    // achievement26 = theory.createSecretAchievement(25,"Futility","Tap the equation 1000 times","Y",() => false);
+    // achievement27 = theory.createSecretAchievement(26, "", "", "", () => false)
 
 
     //// Story chapters

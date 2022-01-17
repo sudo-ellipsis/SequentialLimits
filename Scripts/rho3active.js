@@ -1,3 +1,5 @@
+import { theory } from "../api/Theory";
+
 let targetMultiplier = 5
 
 
@@ -43,6 +45,7 @@ while (true) {
     log(getTimeString(totalTime) + tauAtPub)
     tickLength = 1
     remote("theory.upgrades[0].buy(-1)\n")
+    remote("currency")
     for (let i = 0 ; i < 360; ++i) {
         remote("theory.upgrades[2].buy(-1)\n" +
                "theory.upgrades[3].buy(-1)\n" +
