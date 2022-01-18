@@ -27,7 +27,7 @@ while (true) {
     "game.buy(theory.permanentUpgrades)\n" +
     "hasPublished = false\n" +
     "if(theory.milestonesUnused > 0){\n" +
-    "let m = [1,1,1,3,3,4,4,4,4,2,2,2,2,2]\n" +
+    "let m = [1,1,1,4,4,3,3,2,2,2,2,2]\n" +
     "theory.milestoneUpgrades[m[theory.milestonesTotal-1]-1].buy(1)}\n" +
 
     "if (theory.isPublicationAvailable) {\n" +
