@@ -10,7 +10,7 @@ import { parseBigNumber, BigNumber } from "./api/BigNumber";
 import { theory } from "./api/Theory";
 import { Utils } from "./api/Utils";
 
-var id = "frongl-bongl"; //must be unique, make sure to change it 
+var id = "SequentialLimits"; //must be unique, make sure to change it 
 var name = "Sequential Limits"; //display name
 var description = "After your professor retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the ninth lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations, using a rearrangment of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play exponential idle). \n\nSpecial thanks to:\n- Gilles-Phillipe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n- Xelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me custom theory work.\n- The Exponential Idle beta testing team\n- The Exponential Idle localisation and translation team, who's work I added to, and without which this game wouldn't have the reach it does \n\nEnjoy!"; //theory description. does not support LaTeX
 var authors = "ellipsis"; //display author in the "author" field
@@ -153,12 +153,10 @@ var init = () => {
 
    // achievement21 = theory.createSecretAchievement(20, AchievementCat3,"What's 9 + 10?", "21", "October 9th, 2021", () => a1.level == 9 && a2.level == 10 );
     achievement22 = theory.createSecretAchievement(21, AchievementCat3, bsf.d("UGF0dGVybiBGYW5hdGlj"), bsf.d("SGF2ZSBldmVyeSB2YXJpYWJsZSBsZXZlbCB0aGUgc2FtZQ"), bsf.d("UGFsaW5kcm9taWM"), () => a1.level == a2.level && a1.level == b1.level && a1.level == b2.level && a1.level >= 3);
-    achievement23 = theory.createSecretAchievement(22, AchievementCat3, "bDMzdDVwMzRr", "MTMzNw", "RWxpdGU", () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
+    achievement23 = theory.createSecretAchievement(22, AchievementCat3, bsf.d("bDMzdDVwMzRr"), bsf.d("MTMzNw"), bsf.d("RWxpdGU"), () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
     
     // achievement25 = theory.createSecretAchievement(24, "On Vacation","Don't buy anything for an hour after a publication","", () => false);
     // achievement26 = theory.createSecretAchievement(25,"Futility","Tap the equation 1000 times","Y",() => false);
-    // achievement27 = theory.createSecretAchievement(26, "", "", "", () => false)
-
 
     //// Story chapters
     //TODO ADD MORE STORY CHAPTERS [~15 total]
