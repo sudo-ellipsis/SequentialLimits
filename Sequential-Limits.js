@@ -131,10 +131,10 @@ var init = () => {
     
 
     achievement1 = theory.createAchievement(0, AchievementCat1, "Amateur Author", "Publish once.", () => 1 == numPublishes); //award an achievement with name and description if there has been 1 publish
-    achievement2 = theory.createAchievement(1, AchievementCat1, "Regular Reporter", "Publish 5 times.", () => 5 == numPublishes); //same for 5 publishes
-    achievement3 = theory.createAchievement(2, AchievementCat1, "Studied Scribbler", "Publish 10 times.", () => 10 == numPublishes); //same for 10 publishes
-    achievement4 = theory.createAchievement(3, AchievementCat1, "Exemplary Essayist", "Publish 25 times.", () => 25 == numPublishes); //same for 25 publishes
-    achievement5 = theory.createAchievement(4, AchievementCat1, "Publication Professional", "Publish 50 times.", () => 50 == numPublishes); //same for 50 publishes
+    achievement2 = theory.createAchievement(1, AchievementCat1, "Regular Reporter", "Publish 3 times.", () => 5 == numPublishes); //same for 5 publishes
+    achievement3 = theory.createAchievement(2, AchievementCat1, "Studied Scribbler", "Publish 5 times.", () => 10 == numPublishes); //same for 10 publishes
+    achievement4 = theory.createAchievement(3, AchievementCat1, "Exemplary Essayist", "Publish 10 times.", () => 25 == numPublishes); //same for 25 publishes
+    achievement5 = theory.createAchievement(4, AchievementCat1, "Publication Professional", "Publish 20 times.", () => 50 == numPublishes); //same for 50 publishes
     
     
     achievement7 = theory.createAchievement(6, AchievementCat2, "Close Enough", "Get your approximation of e to 10^-1 off true", () => inverseE_Gamma >= BigNumber.From("1e0"));
