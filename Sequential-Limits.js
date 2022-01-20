@@ -156,7 +156,7 @@ var init = () => {
     achievement23 = theory.createSecretAchievement(22, AchievementCat3, bsf.d("bDMzdDVwMzRr"), bsf.d("MTMzNw"), bsf.d("RWxpdGU"), () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
     
     // achievement25 = theory.createSecretAchievement(24, "On Vacation","Don't buy anything for an hour after a publication","", () => false);
-    // achievement26 = theory.createSecretAchievement(25,"Futility","Tap the equation 1000 times","Y",() => false);
+    achievement26 = theory.createSecretAchievement(25,bsf.d("RnV0aWxpdHk"),bsf.d("VGFwIHRoZSBlcXVhdGlvbiAxMDAwIHRpbWVz"),bsf.d("RmF0aWd1ZWQ"),() => tapCount >= 1000);
 
     //// Story chapters
     //TODO ADD MORE STORY CHAPTERS [~15 total]
@@ -167,7 +167,7 @@ var init = () => {
         chapter5 = theory.createStoryChapter(4, "Making Progress", bsf.d("SXQgdHVybnMgb3V0IGJ1eWluZyB0aG9zZSAnbWlsZXN0b25lJyBtb2RpZmllcnMgd2FzIHRoZSByaWdodCBjaG9pY2UsIGFzIHlvdSd2ZSByZWFjaGVkIDFlMTAwIFJobywgYSBtYWpvciBhY2hpZXZlbWVudCBpbiB5b3VyIHJlc2VhcmNoLgpDb2xsZWFndWVzIGNvbWUgdG8gY29uZ3JhdHVsYXRlIHlvdSBvbiBwdXNoaW5nIHlvdXIgcmVzZWFyY2ggc28gZmFyLCBidXQgeW91IHNocnVnIHRoZW0gb2ZmIC0geW91IGZlZWwgYXMgaWYgdGhlcmUncyBtb3JlIHlvdSBjb3VsZCBkby4KWW91IGhlYWQgYmFjayB0byB5b3VyIG9mZmljZSBhbmQgZ2V0IHRvIHdvcmsgb25jZSBtb3JlLg"), () => currency.value >= BigNumber.From("1e100"));//unlock story chapter upon reaching 1e100 rho1
         chapter6 = theory.createStoryChapter(5, "The End.... Or Is It?",bsf.d("WW91IGZpbmFsbHkgcHVyY2hhc2VkIGV2ZXJ5IG1vZGlmaWVyLCB0byBjbG9zZSBvdXQgeW91ciByZXNlYXJjaCBpbnRvIHRoaXMgZmllbGQuCllvdXIgc3R1ZGVudHMgYXNzaWduZWQgdG8gdGhpcyBwcm9qZWN0IGNlbGVicmF0ZSwgYW50aWNpcGF0aW5nIGNsb3Npbmcgb3V0IHRoaXMgbGluZSBvZiByZXNlYXJjaCwgYW5kIHlvdXIgbmFtZSBpcyBwb3N0ZWQgaW4gam91cm5hbHMgd29ybGR3aWRlLgoKWW91IGRlY2lkZSB0byBnbyBvdmVyIHlvdXIgbnVtYmVycyBvbmNlIG1vcmUsIGp1c3QgdG8gbWFrZSBzdXJlLi4u"), () => gamma0.level == 3 && gamma1.level == 5 && gamma2.level == 2 && gamma3.level == 2); //unlock a story when all milestone levels have been purchased    
         chapter6 = theory.createStoryChapter(6, "Mathaholic",bsf.d("MWU1MDAuCgpBIE1vbnVtZW50YWxseSBsYXJnZSBudW1iZXIsIGJ1dCBiYXJlbHkgYSBibGlwIHRvIHlvdS4KUGVvcGxlIGFyZSByZWFsbHkgdGFraW5nIG5vdGljZSBvZiB5b3Ugbm93LCBwdXNoaW5nIG1hdGhlbWF0aWNzIHRvIHBvaW50cyB0aG91Z2h0IHVuYWNoaWV2ZWFibGUgaW4gdGhpcyBmaWVsZC4KVGhlcmUncyBhIHdhaXRpbmcgbGlzdCB0byBzdHVkeSB1bmRlciB5b3Ugbm93LgpZb3VyIGZyaWVuZHMgYW5kIGZhbWlseSBhcmUgZXhwcmVzc2luZyBjb25jZXJuLCB3b3JyaWVkIHlvdSdyZSBpbiB0b28gZGVlcC4KSXQgZG9lc24ndCBtYXR0ZXIuCkFub3RoZXIgYnJlYWt0aHJvdWdoIGlzIGNsb3NlLgpZb3UgY2FuIGZlZWwgaXQuCgpSaWdodD8"), () => currency.value >= BigNumber.From("1e500"));
-        chapter7 = theory.createStoryChapter(7, "The End.", "MWUxMDAwLgoKQSBudW1iZXIgc28gYmlnIGl0J2QgYmUgaW1wb3NzaWJsZSB0byBjb21wcmVoZW5kLgpZb3UgZGlkIGl0LgpUaGV5IHNhaWQgeW91IGNvdWxkbid0LgpZZWFycyBhZnRlciB5b3UgZmlyc3Qgc3RhcnRlZCwgeW91IHJlYWNoIGFuIGluY3JlZGlibGUgZW5kIHRvIHlvdXIgcmVzZWFyY2guCllvdSdyZSBmZWF0dXJlZCBvbiBUSU1FLCBvbiBkYXl0aW1lIHRlbGV2aXNpb24sIGluIHdvcmxkd2lkZSBuZXdzcGFwZXJzLiBZb3VyIHBhcGVycyBhcmUgZnJhbWVkLCB5b3VyIHN0dWRlbnRzIGFsbCBwcm9mZXNzb3JzIGluIHRoZWlyIG93biByaWdodHMgbm93LgpZb3UgcGFzcyBvbiB0aGUgbWFudGxlIHRvIGEgeW91bmdlciBzdHVkZW50IHRvIHJldGlyZSBsaWtlIHlvdXIgb2xkIHByb2Zlc3NvciwgYmFjayBhbGwgdGhvc2UgeWVhcnMgYWdvLgoKVEhFIEVORC4KCllvdSBjYW4gY29udGludWUgcGxheWluZywgYnV0IHRoaXMgdGhlb3J5IHdvbid0IGNvbnRyaWJ1dGUgdGF1IGFueSBmdXJ0aGVyLiBUaGFuayB5b3UgZm9yIHBsYXlpbmchCmVsbGlwc2lz", () => currency.value >= BigNumber.From("1e1000"));
+        chapter7 = theory.createStoryChapter(7, "The End.", bsf.d("MWUxMDAwLgoKQSBudW1iZXIgc28gYmlnIGl0J2QgYmUgaW1wb3NzaWJsZSB0byBjb21wcmVoZW5kLgpZb3UgZGlkIGl0LgpUaGV5IHNhaWQgeW91IGNvdWxkbid0LgpZZWFycyBhZnRlciB5b3UgZmlyc3Qgc3RhcnRlZCwgeW91IHJlYWNoIGFuIGluY3JlZGlibGUgZW5kIHRvIHlvdXIgcmVzZWFyY2guCllvdSdyZSBmZWF0dXJlZCBvbiBUSU1FLCBvbiBkYXl0aW1lIHRlbGV2aXNpb24sIGluIHdvcmxkd2lkZSBuZXdzcGFwZXJzLiBZb3VyIHBhcGVycyBhcmUgZnJhbWVkLCB5b3VyIHN0dWRlbnRzIGFsbCBwcm9mZXNzb3JzIGluIHRoZWlyIG93biByaWdodHMgbm93LgpZb3UgcGFzcyBvbiB0aGUgbWFudGxlIHRvIGEgeW91bmdlciBzdHVkZW50IHRvIHJldGlyZSBsaWtlIHlvdXIgb2xkIHByb2Zlc3NvciwgYmFjayBhbGwgdGhvc2UgeWVhcnMgYWdvLgoKVEhFIEVORC4KCllvdSBjYW4gY29udGludWUgcGxheWluZywgYnV0IHRoaXMgdGhlb3J5IHdvbid0IGNvbnRyaWJ1dGUgdGF1IGFueSBmdXJ0aGVyLiBUaGFuayB5b3UgZm9yIHBsYXlpbmchCmVsbGlwc2lz"), () => currency.value >= BigNumber.From("1e1000"));
         updateAvailability();
 }
 
@@ -195,7 +195,7 @@ var tick = (elapsedTime, multiplier) => {
     else {
         let r = BigNumber.PI.log() + two_pi_rho.log().log() - two_pi_rho.log(); 
         inverseE_Gamma = ((r.exp() - r).exp() - BigNumber.from(0.5))/BigNumber.E;    }//xelaroc's approximation of the approximation - fixed to work at high values
-
+   
     //rho2dot equation that supports higher values without crashing lol
     let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
@@ -315,13 +315,20 @@ else {
     result += ", \\;\\dot{\\rho}_3 = "; //display rho3dot to a degree of granularity depending on its size, then move to next segment 
     result += rho3dot.toString(3);
 
-
+//    result += "\\;" + tapCount;
 //    result += ",\\; t = " + t.toString(1);
     
 //    }); //end of profiler log
     return result ; //return the sum of text    
 
 }
+
+var getEquationOverlay = () => ui.createGrid({
+    onTouched: (e) => {
+        if (e.type != TouchType.PRESSED) return;
+        tapCount++;
+    }
+})
 
 //USED IN CREATING A QUATERNARY SIDEBAR LIKE IN THEORY 2
 //
@@ -363,11 +370,12 @@ var postPublish = ()  => {
 //NEEDED IF YOU WISH TO KEEP CERTAIN VARIABLES BETWEEN SWITCHES
 var setInternalState = (state) => { //set the internal state of values that need to be kept post switch that aren't levels
     let values = state.split(" "); //save values to a string
-    if (values.length > 0) numPublishes = parseBigNumber(values[0]); //save the value of publish numbers to slot 0
+    if (values.length > 0) numPublishes = values[0]; //save the value of publish numbers to slot 0
     if (values.length > 1) inverseE_Gamma = parseBigNumber(values[1]); //save the value of inverseE_Gamma numbers to slot 1
+    if (values.length >2) tapCount = values[2];
 }
 
-var getInternalState = () => `${numPublishes} ${inverseE_Gamma}` //return the data saved
+var getInternalState = () => `${numPublishes} ${inverseE_Gamma} ${tapCount}` //return the data saved
 
 
 var getPublicationMultiplier = (tau) => tau.pow(1.5); //publication mult bonus is (tau^0.15)*100
