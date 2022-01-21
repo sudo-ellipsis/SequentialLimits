@@ -125,7 +125,7 @@ var init = () => {
     //TODO ADD ACHIEVEMENTS [10 mainline ~4 secret]
     var AchievementCat0 = theory.createAchievementCategory(0, "Miscellaneous");
     var AchievementCat1 = theory.createAchievementCategory(1, "Publications");
-    var AchievementCat2 = theory.createAchievementCategory(2, "Approximation Precision");
+    var AchievementCat2 = theory.createAchievementCategory(2, "Approximation");
     var AchievementCat3  = theory.createAchievementCategory(3, "Secret Achievements");
     achievement6 = theory.createAchievement(5, AchievementCat0, "Purchase Optimisation", "Outsource the actual buying of variables to your students", () => theory.autoBuyerUpgrade > 0); //award an achievement for unlocking the autobuyer
     
