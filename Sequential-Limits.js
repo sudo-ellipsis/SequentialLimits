@@ -156,7 +156,7 @@ var init = () => {
     achievement23 = theory.createSecretAchievement(22, AchievementCat3, bsf.d("bDMzdDVwMzRr"), bsf.d("MTMzNw"), bsf.d("RWxpdGU"), () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
     
     // achievement25 = theory.createSecretAchievement(24, "On Vacation","Don't buy anything for an hour after a publication","", () => false);
-    achievement26 = theory.createSecretAchievement(25,bsf.d("RnV0aWxpdHk"),bsf.d("VGFwIHRoZSBlcXVhdGlvbiAxMDAwIHRpbWVz"),bsf.d("RmF0aWd1ZWQ"),() => tapCount >= 1000);
+    achievement26 = theory.createSecretAchievement(25,AchievementCat3, bsf.d("RnV0aWxpdHk"),bsf.d("VGFwIHRoZSBlcXVhdGlvbiAxMDAwIHRpbWVz"),bsf.d("RmF0aWd1ZWQ"),() => tapCount >= 1000);
 
     //// Story chapters
     //TODO ADD MORE STORY CHAPTERS [~15 total]
