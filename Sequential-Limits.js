@@ -32,10 +32,11 @@ theory.primaryEquationHeight = 70; //set height of primary equation
 theory.secondaryEquationHeight = 35; //set height of second equation
 theory.secondaryEquationScale = 1.25; //makes the secondary eq look 25% bigger
 
-var autobuyUsed = true;
-var isFirstPub = true;
-var anythingBought = false;
+// var autobuyUsed = true;
 var tapCount = 0;
+var t = 0;
+// var abCheck = false;
+// var abFlag = false;
 
 var init = () => {
 
@@ -154,12 +155,11 @@ var init = () => {
    // achievement21 = theory.createSecretAchievement(20, AchievementCat3,"What's 9 + 10?", "21", "October 9th, 2021", () => a1.level == 9 && a2.level == 10 );
     achievement22 = theory.createSecretAchievement(21, AchievementCat3, bsf.d("UGF0dGVybiBGYW5hdGlj"), bsf.d("SGF2ZSBldmVyeSB2YXJpYWJsZSBsZXZlbCB0aGUgc2FtZQ"), bsf.d("UGFsaW5kcm9taWM"), () => a1.level == a2.level && a1.level == b1.level && a1.level == b2.level && a1.level >= 3);
     achievement23 = theory.createSecretAchievement(22, AchievementCat3, bsf.d("bDMzdDVwMzRr"), bsf.d("MTMzNw"), bsf.d("RWxpdGU"), () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
-    
-    // achievement25 = theory.createSecretAchievement(24, "On Vacation","Don't buy anything for an hour after a publication","", () => false);
+    // achievement24 = theory.createSecretAchievement(23, AchievementCat3, "NoAB", "Don't autobuy anything for a whole publication",'Hint', () => abFlag == true && theory.isAutoBuyerAvailable);
+    achievement25 = theory.createSecretAchievement(24, AchievementCat3, "T24gVmFjYXRpb24","RG9uJ3QgYnV5IGFueXRoaW5nIGZvciBhbiBob3VyIGFmdGVyIGEgcHVibGljYXRpb24","Rm9yZ290IHNvbWV0aGluZz8", () => a1.level == 0 && t >= 3600 && numPublishes > 0);
     achievement26 = theory.createSecretAchievement(25,AchievementCat3, bsf.d("RnV0aWxpdHk"),bsf.d("VGFwIHRoZSBlcXVhdGlvbiAxMDAwIHRpbWVz"),bsf.d("RmF0aWd1ZWQ"),() => tapCount >= 1000);
 
     //// Story chapters
-    //TODO ADD MORE STORY CHAPTERS [~15 total]
         chapter1 = theory.createStoryChapter(0, "A New Beginning", bsf.d("WW91IHJldHVybiBmcm9tIHlvdXIgb2xkIHByb2Zlc3NvcidzIHJldGlyZW1lbnQgcGFydHksIHRoZSBtYW50bGUgcGFzc2VkIG9udG8geW91LCB0aGUgZmlyc3Qgc3R1ZGVudCwgdG8gaGVhZCB0aGUgZGVwYXJ0bWVudCBvZiBzdHVkZW50cyBhY2NydWVkIG92ZXIgdGhlIHllYXJzLgpFeGNpdGVkIHRvIGZpbmFsbHkgYmUgbGlzdGVkIGFzIHNvbWV0aGluZyBvdGhlciB0aGFuICdldC4gYWwnIG9uIGEgcGFwZXIsIHlvdSBjb250aW51ZWQgd2l0aCB5b3VyIGV4aXN0aW5nIHJlc2VhcmNoLCBidXQgYXMgcHJvZ3Jlc3Mgc2xvd2VkLCB5b3UgZmVsdCBsZXNzIGFuZCBsZXNzIHNhdGlzZmllZC4KVGhlIGRheXMgdHVybiBpbnRvIHdlZWtzLCB3aGljaCBibHVyIHRvZ2V0aGVyIGFzIG1vcmUgYW5kIG1vcmUgcHVibGljYXRpb25zIGFyZSB3cml0dGVuLgpFdmVudHVhbGx5LCBhIHN0dWRlbnQgY29tZXMgdG8geW91IHdpdGggYSBkdXN0eSB0b21lLCBmZWF0dXJpbmcgYSBhcy1vZi15ZXQgdW5leHBsb3JlZCB0aGVvcmVtLgpGZWVsaW5nIGEgc3Ryb2tlIG9mIGluc3BpcmlhdGlvbiwgeW91IGFzc2VtYmxlIGEgdGVhbSBvZiBzdHVkZW50cyBhbmQgdGhyb3cgeW91cnNlbGYgaW50byB0aGUgcmVzZWFyY2g"), () => a1.level > 0); //unlock story chapter when a1 is purchased
         chapter2 = theory.createStoryChapter(1,"Taking Risks" ,bsf.d("WW91IG5vdGljZSBhIGZldyB1bmFzc3VtaW5nIHZhcmlhYmxlcyBhdCB0aGUgYm90dG9tIG9mIHRoZSBlcXVhdGlvbi4KQSBzdHVkZW50IHdhcm5zIHlvdSBhZ2FpbnN0IGNoYW5naW5nIHRoZW0sIGNpdGluZyB0aGUgcmlzayBvZiBkZWNyZWFzaW5nIHRoZSBpbmNvbWUgZXhpc3RpbmcgdmFsdWVzLCBidXQgeW91IGZvcmdlIGFoZWFkLg"), () => b1.level >0 || b2.level > 0); //unlock story chapter if b1 or b2 have been puchased
         chapter3 = theory.createStoryChapter(2, "International Recognition",bsf.d("WW91IHB1Ymxpc2ggeW91ciBmaXJzdCBwYXBlciwgd2l0aCB5b3VyIG5hbWUgZnJvbnQgYW5kIGNlbnRlci4KQ29sbGVhZ3VlcyBjb25ncmF0dWxhdGUgeW91LCBidXQgeW91IGZlZWwgdGhlcmUgaXMgc29tZXRoaW5nIG1pc3NpbmcsIGZ1cnRoZXIgZXhwbG9yYXRpb24gdG8gYmUgaGFkLgpZb3UgZGVjaWRlIHRvIGZvcmdlIGFoZWFkLg"), () => numPublishes > 0); //unlock story chapter if a publication has been done
@@ -181,7 +181,7 @@ var updateAvailability = () => {
 
 //function that runs every tick, i.e tick math
 var tick = (elapsedTime, multiplier) => {
-    profilers.exec("tick", () => { //tell the profiler to log the following execution time under "tick". to obtain the average results, use <log(profilers.get("tick").mean)> in the SDK command line
+    // profilers.exec("tick", () => { //tell the profiler to log the following execution time under "tick". to obtain the average results, use <log(profilers.get("tick").mean)> in the SDK command line
 
     let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
     
@@ -204,13 +204,17 @@ var tick = (elapsedTime, multiplier) => {
     rho1dot = (currency2.value.pow(BigNumber.ONE+gamma0.level*0.02).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
     
-    // if (0 < a1.level){
-    //     t += elapsedTime;
+    t += elapsedTime;
+    // if (theory.isAutoBuyerAvailable ){
+    //     if (theory.isAutoBuyerActive){
+    //         autobuyUsed = true;
+    //         abCheck = true;
+    //     }
     // }
 
     theory.invalidateTertiaryEquation();
     
-    }); //end of profiled section
+    // }); //end of profiled section
 }
 
 
@@ -250,19 +254,19 @@ var getSecondaryEquation = () => {
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
     switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
         case 1:
-            result+= "^{\\!1.03}\\!";
+            result+= "^{\\!1.02}\\!";
             break;
         case 2:
-            result+= "^{\\!1.06}\\!";
+            result+= "^{\\!1.04}\\!";
             break;
     }
     result += "b_2"; //add b2 
     switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
         case 1:
-            result+= "^{\\!1.03}\\!";
+            result+= "^{\\!1.02}\\!";
             break;
         case 2:
-            result+= "^{\\!1.06}\\!";
+            result+= "^{\\!1.04}\\!";
             break;
     }
     result += "\\qquad "; //add a space
@@ -297,7 +301,7 @@ var getSecondaryEquation = () => {
 //display values considered useful that aren't in the currency bar
 var getTertiaryEquation = () => {
     let result = ""; //blank for profiler reasons, as it doesn't support returns
-//    profilers.exec("renderTertiary", () =>  { //check how long it takes to render the tertiary eq every tick
+    // profilers.exec("renderTertiary", () =>  { //check how long it takes to render the tertiary eq every tick
 //tau_x = max rho, then move to next segment of matrix
 
     //black magic, probably
@@ -314,6 +318,13 @@ else {
 
     result += ", \\;\\dot{\\rho}_3 = "; //display rho3dot to a degree of granularity depending on its size, then move to next segment 
     result += rho3dot.toString(3);
+
+    // result += abCheck;
+    // result += theory.isAutoBuyerActive;
+    // result += theory.isAutoBuyerAvailable;
+    // result += abFlag;
+    // result += autobuyUsed;
+    // result += t;
 
 //    result += "\\;" + tapCount;
 //    result += ",\\; t = " + t.toString(1);
@@ -358,8 +369,11 @@ var postPublish = ()  => {
     theory.invalidatePrimaryEquation(); 
     theory.invalidateSecondaryEquation();
     theory.invalidateTertiaryEquation();
-//    t = BigNumber.Zero; //set time since publish to 0
-
+    t = 0; //set time since publish to 0
+    // if (abCheck == false && theory.isAutoBuyerAvailable) {
+    //     abFlag = true;
+    // }
+    // autobuyUsed = false;
     //set rho3 to 1 to avoid div/0 errors (hopefully)
     currency3.value = BigNumber.ONE;
 
@@ -372,10 +386,14 @@ var setInternalState = (state) => { //set the internal state of values that need
     let values = state.split(" "); //save values to a string
     if (values.length > 0) numPublishes = values[0]; //save the value of publish numbers to slot 0
     if (values.length > 1) inverseE_Gamma = parseBigNumber(values[1]); //save the value of inverseE_Gamma numbers to slot 1
-    if (values.length >2) tapCount = values[2];
+    if (values.length > 2) tapCount = values[2];
+    if (values.length > 3) t = values[3];
+    // if (values.length > 4) abCheck = values[4];
+    // if (values.length > 5) autobuyUsed = values[5]; 
+    // if (values.length > 6) abFlag = values[5];    
 }
 
-var getInternalState = () => `${numPublishes} ${inverseE_Gamma} ${tapCount}` //return the data saved
+var getInternalState = () => `${numPublishes} ${inverseE_Gamma} ${tapCount} ${t}` /*${abCheck} ${autobuyUsed} ${abFlag}*/ //return the data saved
 
 
 var getPublicationMultiplier = (tau) => tau.pow(1.5); //publication mult bonus is (tau^0.15)*100
