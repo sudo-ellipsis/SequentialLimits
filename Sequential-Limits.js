@@ -1,9 +1,5 @@
 ﻿﻿//uses code from davidcondrey on stack exchange, xelaroc (alexcord#6768) and Gilles-Philippe Paillé(#0778). 
-//
 
-//ensure to have this theory in the theory-sdk release folder when editing otherwise you won't see api documentation on hover
-//you may need to use ../api/<file> to see documentation depending on your IDE
-//useful only when making the theory, shows documentation on hover, doesn't actually get used, so you don't need it. helpful anyways.
 import { ExponentialCost, FirstFreeCost, LinearCost, CustomCost } from "./api/Costs"; //make sure to use
 import { Localization } from "./api/Localization";
 import { parseBigNumber, BigNumber } from "./api/BigNumber";
@@ -149,15 +145,12 @@ var init = () => {
     achievement15 = theory.createAchievement(14, AchievementCat2, "Running Out Of Room", "Get your approximation of e to 10^-250 off true", () => inverseE_Gamma >= BigNumber.From("1e250"));
     achievement16 = theory.createAchievement(15, AchievementCat2, "You Can Stop Anytime", "Get your approximation of e to 10^-500 off true", () => inverseE_Gamma >= BigNumber.From("1e500"));
     
-    //TODO ADD ~5 ACHIEVEMENTS BASED ON FUNNY RHO1 NUMBERS
-    //69, 420, 666, 777, 1000
-
    // achievement21 = theory.createSecretAchievement(20, AchievementCat3,"What's 9 + 10?", "21", "October 9th, 2021", () => a1.level == 9 && a2.level == 10 );
-    achievement22 = theory.createSecretAchievement(21, AchievementCat3, bsf.d("UGF0dGVybiBGYW5hdGlj"), bsf.d("SGF2ZSBldmVyeSB2YXJpYWJsZSBsZXZlbCB0aGUgc2FtZQ"), bsf.d("UGFsaW5kcm9taWM"), () => a1.level == a2.level && a1.level == b1.level && a1.level == b2.level && a1.level >= 3);
-    achievement23 = theory.createSecretAchievement(22, AchievementCat3, bsf.d("bDMzdDVwMzRr"), bsf.d("MTMzNw"), bsf.d("RWxpdGU"), () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
+    achievement22 = theory.createSecretAchievement(21, AchievementCat3, bsf.d("UGF0dGVybiBGYW5hdGlj"), bsf.d("SGF2ZSBldmVyeSB2YXJpYWJsZSBsZXZlbCB0aGUgc2FtZQ")+ ".", bsf.d("UGFsaW5kcm9taWM"), () => a1.level == a2.level && a1.level == b1.level && a1.level == b2.level && a1.level >= 3);
+    achievement23 = theory.createSecretAchievement(22, AchievementCat3, bsf.d("bDMzdDVwMzRr"), bsf.d("MTMzNw")+ ".", bsf.d("RWxpdGU"), () => a1.level == 1 && a2.level == 3 && b1.level == 3 && b2.level == 7 );
     // achievement24 = theory.createSecretAchievement(23, AchievementCat3, "NoAB", "Don't autobuy anything for a whole publication",'Hint', () => abFlag == true && theory.isAutoBuyerAvailable);
-    achievement25 = theory.createSecretAchievement(24, AchievementCat3, "T24gVmFjYXRpb24","RG9uJ3QgYnV5IGFueXRoaW5nIGZvciBhbiBob3VyIGFmdGVyIGEgcHVibGljYXRpb24","Rm9yZ290IHNvbWV0aGluZz8", () => a1.level == 0 && t >= 3600 && numPublishes > 0);
-    achievement26 = theory.createSecretAchievement(25,AchievementCat3, bsf.d("RnV0aWxpdHk"),bsf.d("VGFwIHRoZSBlcXVhdGlvbiAxMDAwIHRpbWVz"),bsf.d("RmF0aWd1ZWQ"),() => tapCount >= 1000);
+    achievement25 = theory.createSecretAchievement(24, AchievementCat3, bsf.d("T24gVmFjYXRpb24"),bsf.d("RG9uJ3QgYnV5IGFueXRoaW5nIGZvciBhbiBob3VyIGFmdGVyIGEgcHVibGljYXRpb24") + ".",bsf.d("Rm9yZ290IHNvbWV0aGluZz8"), () => a1.level == 0 && t >= 3600 && numPublishes > 0);
+    achievement26 = theory.createSecretAchievement(25,AchievementCat3, bsf.d("RnV0aWxpdHk"),bsf.d("VGFwIHRoZSBlcXVhdGlvbiAxMDAwIHRpbWVz")+ ".",bsf.d("RmF0aWd1ZWQ"),() => tapCount >= 1000);
 
     //// Story chapters
         chapter1 = theory.createStoryChapter(0, "A New Beginning", bsf.d("WW91IHJldHVybiBmcm9tIHlvdXIgb2xkIHByb2Zlc3NvcidzIHJldGlyZW1lbnQgcGFydHksIHRoZSBtYW50bGUgcGFzc2VkIG9udG8geW91LCB0aGUgZmlyc3Qgc3R1ZGVudCwgdG8gaGVhZCB0aGUgZGVwYXJ0bWVudCBvZiBzdHVkZW50cyBhY2NydWVkIG92ZXIgdGhlIHllYXJzLgpFeGNpdGVkIHRvIGZpbmFsbHkgYmUgbGlzdGVkIGFzIHNvbWV0aGluZyBvdGhlciB0aGFuICdldC4gYWwnIG9uIGEgcGFwZXIsIHlvdSBjb250aW51ZWQgd2l0aCB5b3VyIGV4aXN0aW5nIHJlc2VhcmNoLCBidXQgYXMgcHJvZ3Jlc3Mgc2xvd2VkLCB5b3UgZmVsdCBsZXNzIGFuZCBsZXNzIHNhdGlzZmllZC4KVGhlIGRheXMgdHVybiBpbnRvIHdlZWtzLCB3aGljaCBibHVyIHRvZ2V0aGVyIGFzIG1vcmUgYW5kIG1vcmUgcHVibGljYXRpb25zIGFyZSB3cml0dGVuLgpFdmVudHVhbGx5LCBhIHN0dWRlbnQgY29tZXMgdG8geW91IHdpdGggYSBkdXN0eSB0b21lLCBmZWF0dXJpbmcgYSBhcy1vZi15ZXQgdW5leHBsb3JlZCB0aGVvcmVtLgpGZWVsaW5nIGEgc3Ryb2tlIG9mIGluc3BpcmlhdGlvbiwgeW91IGFzc2VtYmxlIGEgdGVhbSBvZiBzdHVkZW50cyBhbmQgdGhyb3cgeW91cnNlbGYgaW50byB0aGUgcmVzZWFyY2g"), () => a1.level > 0); //unlock story chapter when a1 is purchased
@@ -172,16 +165,8 @@ var init = () => {
 }
 
 
-var updateAvailability = () => {
-//    useful for balancing your milestones, and used to make variables available through milestones
-//    c2Exp.isAvailable = c1Exp.level > 0; //can only buy the c2 exponent upgrade milestone (at least, if c2Exp is a milestone variable) if a c1 exponent upgrade has been purchased
-//    c2.isAvailable = c2Term.level > 0; //c2 is only available as a variable if c2Term upgrade has been purchased
-}
-
-
 //function that runs every tick, i.e tick math
 var tick = (elapsedTime, multiplier) => {
-    // profilers.exec("tick", () => { //tell the profiler to log the following execution time under "tick". to obtain the average results, use <log(profilers.get("tick").mean)> in the SDK command line
 
     let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
     
@@ -205,16 +190,8 @@ var tick = (elapsedTime, multiplier) => {
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
     
     t += elapsedTime;
-    // if (theory.isAutoBuyerAvailable ){
-    //     if (theory.isAutoBuyerActive){
-    //         autobuyUsed = true;
-    //         abCheck = true;
-    //     }
-    // }
-
     theory.invalidateTertiaryEquation();
     
-    // }); //end of profiled section
 }
 
 
@@ -300,12 +277,7 @@ var getSecondaryEquation = () => {
 
 //display values considered useful that aren't in the currency bar
 var getTertiaryEquation = () => {
-    let result = ""; //blank for profiler reasons, as it doesn't support returns
-    // profilers.exec("renderTertiary", () =>  { //check how long it takes to render the tertiary eq every tick
-//tau_x = max rho, then move to next segment of matrix
-
-    //black magic, probably
-    result += "e - \\gamma = ";
+    let result = "e - \\gamma = ";
     if(inverseE_Gamma <= 10000)
     result += (BigNumber.ONE/inverseE_Gamma).toString(4);
 else { 
@@ -319,17 +291,6 @@ else {
     result += ", \\;\\dot{\\rho}_3 = "; //display rho3dot to a degree of granularity depending on its size, then move to next segment 
     result += rho3dot.toString(3);
 
-    // result += abCheck;
-    // result += theory.isAutoBuyerActive;
-    // result += theory.isAutoBuyerAvailable;
-    // result += abFlag;
-    // result += autobuyUsed;
-    // result += t;
-
-//    result += "\\;" + tapCount;
-//    result += ",\\; t = " + t.toString(1);
-    
-//    }); //end of profiler log
     return result ; //return the sum of text    
 
 }
@@ -341,28 +302,6 @@ var getEquationOverlay = () => ui.createGrid({
     }
 })
 
-//USED IN CREATING A QUATERNARY SIDEBAR LIKE IN THEORY 2
-//
-// var getQuaternaryEntries = () => {
-//     if (quaternaryEntries.length == 0)
-//     {
-//        quaternaryEntries.push(new QuaternaryEntry("r_1", null)); //create an entry that reads r_1 = null (i.e, "???")
-//         quaternaryEntries.push(new QuaternaryEntry("r_2", null)); //same as above
-//         quaternaryEntries.push(new QuaternaryEntry("r_3", null));
-//         quaternaryEntries.push(new QuaternaryEntry("r_4", null));
-//     }
-
-//     quaternaryEntries[0].value = r0.toString(); //value 1 is r0's value, replacing the "null"
-//     quaternaryEntries[1].value = r1.toString(); //value 2 is r1's value, replacing the "null"
-//     quaternaryEntries[2].value = rTerms.level > 0 ? r2.toString() : null; //if rTerm milestone has been purchased, display the value as r2's value - otherwise defaults to question marks
-//     quaternaryEntries[3].value = rTerms.level > 1 ? r3.toString() : null; //same as above for milestone level 2 being purchased
-
-//     return quaternaryEntries;
-// }
-
-//creates a top progress bar with a progress from the "prg" variable.
-// var getEquationOverlay = () => ui.createProgressBar({progress: prg, verticalOptions: LayoutOptions.START})
-
 
 var postPublish = ()  => {
     //force update all equations
@@ -370,30 +309,23 @@ var postPublish = ()  => {
     theory.invalidateSecondaryEquation();
     theory.invalidateTertiaryEquation();
     t = 0; //set time since publish to 0
-    // if (abCheck == false && theory.isAutoBuyerAvailable) {
-    //     abFlag = true;
-    // }
-    // autobuyUsed = false;
-    //set rho3 to 1 to avoid div/0 errors (hopefully)
+
     currency3.value = BigNumber.ONE;
 
     numPublishes++; //increase number of publishes
 
 }
 
-//NEEDED IF YOU WISH TO KEEP CERTAIN VARIABLES BETWEEN SWITCHES
 var setInternalState = (state) => { //set the internal state of values that need to be kept post switch that aren't levels
     let values = state.split(" "); //save values to a string
     if (values.length > 0) numPublishes = values[0]; //save the value of publish numbers to slot 0
     if (values.length > 1) inverseE_Gamma = parseBigNumber(values[1]); //save the value of inverseE_Gamma numbers to slot 1
     if (values.length > 2) tapCount = values[2];
     if (values.length > 3) t = values[3];
-    // if (values.length > 4) abCheck = values[4];
-    // if (values.length > 5) autobuyUsed = values[5]; 
-    // if (values.length > 6) abFlag = values[5];    
+
 }
 
-var getInternalState = () => `${numPublishes} ${inverseE_Gamma} ${tapCount} ${t}` /*${abCheck} ${autobuyUsed} ${abFlag}*/ //return the data saved
+var getInternalState = () => `${numPublishes} ${inverseE_Gamma} ${tapCount} ${t}` //return the data saved
 
 
 var getPublicationMultiplier = (tau) => tau.pow(1.5); //publication mult bonus is (tau^0.15)*100
@@ -407,4 +339,4 @@ var getb1 = (level) => Utils.getStepwisePowerSum(level, 6.5, 4, 0); //get the va
 var getb2 = (level) => BigNumber.TWO.pow(level); //get the value of the variable from a power of 2^level
 
 
-init(); //british line [lime]
+init();
