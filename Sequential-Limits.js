@@ -79,8 +79,8 @@ var init = () => {
 
     //milestone 1
     {
-        gamma0 = theory.createMilestoneUpgrade(0, 3); //create an upgrade of ID 0 and max level 3 [this is gamma0]
-        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.02"); //set desc as localisation of "increases rho_2 exponent by 0.01"
+        gamma0 = theory.createMilestoneUpgrade(0, 3); //create an upgrade of ID 0 and max level 3
+        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.02"); //set desc as localisation of "increases rho_2 exponent by 0.02"
         gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.02"); //basically the same but for info button
         gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation(); //if bought/refunded, force a refresh of the equation
     }
@@ -88,7 +88,7 @@ var init = () => {
     //milestone 2
     //TODO change it to a localisation of decreases lol
     {
-        gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5 [this is gamma1]
+        gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5
         gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.008"); //set desc as localisation of "decreases a3 by 0.008"
         gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.008"); //basically the same but for info button
         gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
@@ -96,16 +96,16 @@ var init = () => {
     
     //milestone 3
     {
-        gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 4 [this is gamma2]
-        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); //set desc as localisation of "increases b1 exponent by 0.01"
+        gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 2
+        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); //set desc as localisation of "increases b1 exponent by 0.02"
         gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.02"); //basically the same but for info button
         gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
 
     //milestone 4
     {
-        gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 4 [this is gamma3]
-        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.02"); //set desc as localisation of "increases b2 exponent by 0.01""
+        gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 2
+        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.02"); //set desc as localisation of "increases b2 exponent by 0.02"
         gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.02"); //basically the same but for info button
         gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }        
