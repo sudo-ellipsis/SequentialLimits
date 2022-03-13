@@ -1,5 +1,7 @@
-add new achievements 
+fix spelling errors
+add localization support
+add localization sheet
+add postgame chapters (8-10)
+add new SA
 clean out old commented debug code
-add localization
 re-comment theory
-write theory creation guide
