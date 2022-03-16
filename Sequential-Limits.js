@@ -78,6 +78,8 @@ var currency = theory.createCurrency(), currency2 = theory.createCurrency(), cur
 var a1, a2, b1, b2; //set a1, a2, b1, b2 levels
 var numPublications = 0; //number of publications
 
+var aMisc, aPubs, aPrecision, aSecrets; //achievement category variables
+
 var gamma0, gamma1, gamma2, gamma3; //create 4 variables that i'll use for milestones
 var rho1dot = BigNumber.ZERO, rho2dot = BigNumber.ZERO, rho3dot = BigNumber.ZERO; //used as drho's
 var inverseE_Gamma; //used for the approximation of e
