@@ -58,6 +58,11 @@ localisationTable = { //stupid as fuck
                     'category':aPrecision,
                     'name':"Microscopic",
                     'description': "Get your approximation of e to 10^-15 off true"
+                },
+                'a11':{
+                    'category':aPrecision,
+                    'name':"Are we there yet?",
+                    'description': "Get your approximation of e to 10^-50 off true"
                 },  
                 'a12':{
                     'category':aPrecision,
@@ -67,7 +72,22 @@ localisationTable = { //stupid as fuck
                 'a13':{
                     'category':aPrecision,
                     'name':"Planck Pettiness",
-                    'description': "Get your approximation of e to 10^-1 off true"
+                    'description': "Get your approximation of e to 10^-35 off true"
+                },
+                'a14':{
+                    'category':aPrecision,
+                    'name':"Precision Player",
+                    'description': "Get your approximation of e to 10^-100 off true"
+                },
+                'a15':{
+                    'category':aPrecision,
+                    'name':"Running Out Of Room",
+                    'description': "Get your approximation of e to 10^-250 off true"
+                },
+                'a16':{
+                    'category':aPrecision,
+                    'name':"You Can Stop Anytime",
+                    'description': "Get your approximation of e to 10^-500 off true"
                 },
 
             },
@@ -99,15 +119,20 @@ localisationTable = { //stupid as fuck
 
 
 //test expressions
-console.log(localisationTable.english.achievements.public.a1.category)
-console.log('en' in localisationTable)
+console.log(locale.achievements.public.a1.category);
+console.log('en' in localisationTable);
 
-var language = () => { //this is so fucking buggy. requires 100% translation. perhaps a method that allows partial translation?
-    if (Localization.getLanguage in localisationTable.keys()){ //if it's in the localisation table
-        return Localization.getLanguage
-    }
-    else return 'en'
+if (Localization.getLanguage in localisationTable.keys()){ //if it's in the localisation table
+    locale = localisationTable.Localization.getLanguage;
 }
+else locale = localisationTable.en;
+
+// var language = () => { //this is so fucking buggy. requires 100% translation. perhaps a method that allows partial translation?
+//     if (Localization.getLanguage in localisationTable.keys()){ //if it's in the localisation table
+//         return localisationTable.Localization.getLanguage
+//     }
+//     else return localisationTable.en
+// }
 
 //CHEAT SHEET
 // English               en
