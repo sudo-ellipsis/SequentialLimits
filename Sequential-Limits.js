@@ -16,35 +16,122 @@ var getLanguage = () => { //this is so fucking buggy. requires 100% translation.
     }
 }
 
-localisationTable = { //stupid as fuck
-    'english':{
+localisationTable = { //stupid heavily-nested translation table.
+    'en':{ //ENGLISH
         'name':'Sequential Limits',
         'description':"You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!",
         'authors':'ellipsis',
         'achievements':{    
-            'public':{
+            'public':{ //non-secret achievments
+                //publication count achievements
                 'a1':{
-                    'category':'aPubs',
+                    'category':aPubs,
                     'name':'Amateur Author',
-                    'description':'Publish once.',
+                    'description':'Publish once.'
                 },
                 'a2':{
-                    'category':'aPubs',
+                    'category':aPubs,
                     'name':'Regular Reporter',
-                    'description':'Publish 3 times',
+                    'description':'Publish 3 times'
                 },
                 'a3':{
-                    'category':'aPubs',
+                    'category':aPubs,
                     'name':'Studied Scribbler',
-                    'description':'Publish 5 times.',
+                    'description':'Publish 5 times.'
                 },
+                'a4':{
+                    'category':aPubs,
+                    'name':'Exemplary Essayist',
+                    'description':'Publish 10 times.'
+                },
+                'a5':{
+                    'category':aPubs,
+                    'name':'Publication Professional',
+                    'description':'Publish 20 times.'
+                },
+                //misc achievements
+                'a6':{
+                    'category':aMisc,
+                    'name':'Purchase Optimisation',
+                    'description':'Outsource the actual buying of variables to your students'
+                },
+                //precision achievements
+                'a7':{
+                    'category':aPrecision,
+                    'name':"Close Enough",
+                    'description': "Get your approximation of e to 10^-1 off true"
+                },
+                'a8':{
+                    'category':aPrecision,
+                    'name':"Nitpicking Excercise",
+                    'description': "Get your approximation of e to 10^-5 off true"
+                },
+                'a9':{
+                    'category':aPrecision,
+                    'name':"Splitting Hairs",
+                    'description': "Get your approximation of e to 10^-10 off true"
+                },
+                'a10':{
+                    'category':aPrecision,
+                    'name':"Microscopic",
+                    'description': "Get your approximation of e to 10^-15 off true"
+                },
+                'a11':{
+                    'category':aPrecision,
+                    'name':"Are we there yet?",
+                    'description': "Get your approximation of e to 10^-50 off true"
+                },  
+                'a12':{
+                    'category':aPrecision,
+                    'name':"Subatomic",
+                    'description': "Get your approximation of e to 10^-25 off true"
+                },
+                'a13':{
+                    'category':aPrecision,
+                    'name':"Planck Pettiness",
+                    'description': "Get your approximation of e to 10^-35 off true"
+                },
+                'a14':{
+                    'category':aPrecision,
+                    'name':"Precision Player",
+                    'description': "Get your approximation of e to 10^-100 off true"
+                },
+                'a15':{
+                    'category':aPrecision,
+                    'name':"Running Out Of Room",
+                    'description': "Get your approximation of e to 10^-250 off true"
+                },
+                'a16':{
+                    'category':aPrecision,
+                    'name':"You Can Stop Anytime",
+                    'description': "Get your approximation of e to 10^-500 off true"
+                },
+
             },
-            'secret':{
+            'secret':{//secret achievements
                 'sa1':{
-                    'category':'',
-                    'name':'',
-                    'description':'',
-                    'hint':''
+                    'category':aSecrets,
+                    'name':'Pattern Fanatic',
+                    'description':'Have every variable level the same',
+                    'hint':'Palindromic'
+                },
+                'sa2':{
+                    'category':aSecrets,
+                    'name':'l33t5p34k',
+                    'description':'1337',
+                    'hint':'Elite.'
+                },
+                'sa3':{
+                    'category':aSecrets,
+                    'name':'On Vacation',
+                    'description':'Don\'t buy anything for an hour after publication',
+                    'hint':'Forgot Something?'
+                },
+                'sa4':{
+                    'category':aSecrets,
+                    'name':'Futility',
+                    'description':'Tap the equation 1000 times',
+                    'hint':'Fatigued'
                 },
             }
         },
@@ -65,7 +152,7 @@ localisationTable = { //stupid as fuck
     }
 }
 
-var gamelanguage = Localization.language; //i really don' tneed to put so many var's in but w/e
+var gamelanguage = Localization.language; //i really don't need to put so many var's in but w/e
 //just to remind myself
 
 var id = "SequentialLimits"; //must be unique, make sure to change it 
@@ -92,6 +179,14 @@ var init = () => {
     theory.secondaryEquationHeight = 35; //set height of second equation
     theory.secondaryEquationScale = 1.25; //makes the secondary eq look 25% bigger
     updateInverseE_Gamma();
+
+    //set locale
+    if (Localization.getLanguage in localisationTable.keys()){ //if it's in the localisation table
+        locale = localisationTable[Localization.getLanguage];
+    }
+    else locale = localisationTable.en;
+    
+
 
     // Regular Upgrades   
     // DONT EVEN FUCKING THINK ABOUT IT. NO MORE BALANCE CHANGES 
