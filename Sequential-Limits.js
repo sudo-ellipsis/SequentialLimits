@@ -9,23 +9,16 @@ import { language } from "./api/Localization"
 
 //godawful localisation table bc this is how i'm doing it. cope about it
 //probably need to account for empties with an "if", reminder to me in the future
-
-// var getLanguage = () => { //this is so fucking buggy. requires 100% translation. perhaps a method that allows partial translation?
-//     if (true){ //if it's in the localisation table
-
-//     }
-// }
-
 localisationTable = { //stupidly large nested dicts of translation table
     'en':{ //ENGLISH
-        'name':'Sequential Limits',
+        'name':'SL LOCALISATION TEST',
         'description':"You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!",
         'authors':'ellipsis',
         'achievements':{   
             'categories':{
                 'misc':'Miscellaneous',
                 'pubs':'Publications',
-                'precision':'Approximation Precision',
+                'precision':'Approximation',
                 'sa':'Secret Achievements'
             },
             'public':{
@@ -142,37 +135,61 @@ localisationTable = { //stupidly large nested dicts of translation table
             }
         },
         'story':{
-            'chapter1':"You return from your old professor's retirement party, the mantle passed onto you, the first student, to head the department of students accrued over the years.\nExcited to finally be listed as something other than 'et. al' on a paper, you continued with your existing research, but as progress slowed, you felt less and less satisfied.\nThe days turn into weeks, which blur together as more and more publications are written.\nEventually, a student comes to you with a dusty tome, featuring a as-of-yet unexplored theorem.\nFeeling a stroke of inspiriation, you assemble a team of students and throw yourself into the research.",
-            'chapter2':"You notice a few unassuming variables at the bottom of the equation.\nA student warns you against changing them, citing the risk of decreasing the income existing values, but you forge ahead.",
-            'chapter3':"You publish your first paper, with your name front and center.\nColleagues congratulate you, but you feel there is something missing, further exploration to be had.\nYou decide to keep going full steam ahead.",
-            'chapter4':"With your progress starting to slow, you scour the original equation texts to find a remedy.\nIt turns out all along there's been some modifiers you can add, but at ever increasing costs.\nYou decide to buy one, hoping it alleviates your issues...",
-            'chapter5':"You reach 1e100 ρ₁, a major milestone in your research.\nColleagues come to congratulate you on pushing your research so far, but you shrug them off - you feel as if there's more you could do.\nYou head back to your office and get to work once more.",
-            'chapter6':"You finally purchased every modifier, to close out your research into this field.\nYour students assigned to this project celebrate, anticipating closing out this line of research, and your name is posted in journals worldwide.\n\nYou decide to go over your numbers once more, just to make sure...",
-            'chapter7':"1e500.\n\nA monumentally large number, but but barely a blip to you now.\nPeople are starting to take notice as you push mathematics to points thought unachieveable in this field.\nThere's a waiting list to study under you now.\nYour friends and family are expressing concern, worried you're in too deep.It doesn't matter.\nAnother breakthrough is close.\nYou can feel it.\n\n\nRight?",
-            'chapter8':"1e1000.\n\nA number so big it'd be impossible to comprehend.\nYou did it. They said you couldn't.\nYears after you first started, you reach an incredible end to your research.\nYou're featured on TIME, on daytime television, in worldwide newspapers.\nYour papers are framed, your students all professors in their own rights now.\nYou pass on the mantle to a younger student of yours to retire like your old professor, back all those years ago.\n\nTHE END.\nThanks for playing! - ellipsis",
-            'chapter9':"", //TODO
-            'chapter10':"" //ditto
+            'chapter1':{
+                'title':'A New Beginning',
+                'body':"You return from your old professor's retirement party, the mantle passed onto you, the first student, to head the department of students accrued over the years.\nExcited to finally be listed as something other than 'et. al' on a paper, you continued with your existing research, but as progress slowed, you felt less and less satisfied.\nThe days turn into weeks, which blur together as more and more publications are written.\nEventually, a student comes to you with a dusty tome, featuring a as-of-yet unexplored theorem.\nFeeling a stroke of inspiriation, you assemble a team of students and throw yourself into the research."
+                },
+            
+            'chapter2':{
+                'title':'Taking Risks',
+                'body':"You notice a few unassuming variables at the bottom of the equation.\nA student warns you against changing them, citing the risk of decreasing the income existing values, but you forge ahead.",
+            },
+            'chapter3':{
+                'title':'International Recognition',
+                'body':"You publish your first paper, with your name front and center.\nColleagues congratulate you, but you feel there is something missing, further exploration to be had.\nYou decide to keep going full steam ahead.",
+            },
+            'chapter4':{
+                'title':'Light Modification',
+                'body':"With your progress starting to slow, you scour the original equation texts to find a remedy.\nIt turns out all along there's been some modifiers you can add, but at ever increasing costs.\nYou decide to buy one, hoping it alleviates your issues...",
+            },
+            'chapter5':{
+                'title':'Making Progress',
+                'body':"You reach 1e100 ρ₁, a major milestone in your research.\nColleagues come to congratulate you on pushing your research so far, but you shrug them off - you feel as if there's more you could do.\nYou head back to your office and get to work once more.",
+            },
+            'chapter6':{
+                'title':'The End... Or Is It?',
+                'body':"You finally purchased every modifier, to close out your research into this field.\nYour students assigned to this project celebrate, anticipating closing out this line of research, and your name is posted in journals worldwide.\n\nYou decide to go over your numbers once more, just to make sure...",
+            },
+            'chapter7':{
+                'title':'Mathaholic',
+                'body':"1e500.\n\nA monumentally large number, but but barely a blip to you now.\nPeople are starting to take notice as you push mathematics to points thought unachieveable in this field.\nThere's a waiting list to study under you now.\nYour friends and family are expressing concern, worried you're in too deep.It doesn't matter.\nAnother breakthrough is close.\nYou can feel it.\n\n\nRight?",
+            },
+            'chapter8':{
+                'title':'The End',
+                'body':"1e1000.\n\nA number so big it'd be impossible to comprehend.\nYou did it. They said you couldn't.\nYears after you first started, you reach an incredible end to your research.\nYou're featured on TIME, on daytime television, in worldwide newspapers.\nYour papers are framed, your students all professors in their own rights now.\nYou pass on the mantle to a younger student of yours to retire like your old professor, back all those years ago.\n\nTHE END.\nThanks for playing! - ellipsis",
+            },
+            'chapter9':{//todo
+                'title':'',
+                'body':''
+            },
+            'chapter10':{//todo
+                'title':'',
+                'body':''
+            }
         }
-    
-    
-    }
+    },
 }
 //set locale
 // locale = localisationTable.en;
-if (Localization.getLanguage in localisationTable.keys()){ //if it's in the localisation table
-    locale = localisationTable[Localization.getLanguage];
+if (localisationTable[Localization.language]){ //if it's in the localisation table
+    locale = localisationTable[Localization.language];
 }
 else locale = localisationTable.en;
 
-
-
-// var gamelanguage = Localization.language; //i really don't need to put so many var's in but w/e
-//just to remind myself
-
 var id = "SequentialLimits"; //must be unique, make sure to change it 
-var name = locale.name; //display name
-var description = locale.description
-var authors = locale.authors; //display author in the "author" field
+var name = 'Sequential Limits' //dummy, as the game won't allow anything other than a literal for first load
+var description = "You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!" //ditto
+var authors = 'ellipsis'
 var version = 8; //version id, make sure to change it on update
 
 var currency = theory.createCurrency(), currency2 = theory.createCurrency(), currency3 = theory.createCurrency(); //create three currency variables and list them as currencies
@@ -188,6 +205,12 @@ var tapCount = 0;
 var t = 0;
 
 var init = () => {
+    //workaround so the game doesn't spit the dummy about localisation
+    //sometimes my genius is almost frightening
+    authors = locale.authors; //display author in the "author" field
+    name = locale.name; //display name
+    description = locale.description
+
     currency3.value = 1; //set rho3 to 1 to avoid a div by 0 error lol
     theory.primaryEquationHeight = 70; //set height of primary equation
     theory.secondaryEquationHeight = 35; //set height of second equation
