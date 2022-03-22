@@ -1,7 +1,6 @@
-fix spelling errors
-add localization support
-add localization sheet
+rework getName, getDescription etc
 add postgame chapters (8-10)
+refactor tick() to be less slow
 add new SA
 clean out old commented debug code
 re-comment theory
