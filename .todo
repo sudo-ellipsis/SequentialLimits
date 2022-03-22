@@ -1,6 +1,7 @@
 rework getName, getDescription etc
 add postgame chapters (8-10)
 refactor tick() to be less slow
+find better way to credit translators
 add new SA
 clean out old commented debug code
 re-comment theory
