@@ -509,7 +509,7 @@ var init = () => {
     
     achievement6 = theory.createAchievement(5, aMisc, locale.achievements.public.a6.name, locale.achievements.public.a6.description, () => theory.isAutoBuyerAvailable); //award an achievement for unlocking the autobuyer
 
-    achievement7 = theory.createAchievement(6, aPrecision, locale.achievements.public.a7.name, locale.achievements.public.a7.description, () => inverseE_Gamma >= BigNumber.From("1e0"));
+    achievement7 = theory.createAchievement(6, aPrecision, locale.achievements.public.a7.name, locale.achievements.public.a7.description, () => inverseE_Gamma >= BigNumber.From("1e1")); //oops
     achievement8 = theory.createAchievement(7, aPrecision, locale.achievements.public.a8.name, locale.achievements.public.a8.description, () => inverseE_Gamma >= BigNumber.From("1e5"));
     achievement9 = theory.createAchievement(8, aPrecision, locale.achievements.public.a9.name, locale.achievements.public.a9.description, () => inverseE_Gamma >= BigNumber.From("1e10"));
     achievement10 = theory.createAchievement(9, aPrecision, locale.achievements.public.a10.name, locale.achievements.public.a10.description, () => inverseE_Gamma >= BigNumber.From("1e15"));

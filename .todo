@@ -1,3 +1,5 @@
+check if the achievements 7-16 have the right trigger conditions
+fix the translation sheet to have updated strings
 add update popup
 rework getName, getDescription etc
 add postgame chapters (8-10)
