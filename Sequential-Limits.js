@@ -1,4 +1,4 @@
-﻿﻿﻿//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778). 
+﻿﻿//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778). 
 //COMMENTS ARE LIKELY OUTDATED
 //If you'd like help with your own custom theory, or want to ask about this mess, you can contact me by pinging @ellipsis in #custom-theories-dev in the exponential idle discord server.
 //or add me on discord (@ellipsis#5369) but ill probably change the #
@@ -146,7 +146,7 @@ localisationTable = { //stupidly large nested dicts of translation table
             
             'chapter2':{
                 'title':'Taking Risks',
-                'body':"You notice a few unassuming variables at the bottom of the equation.\nA student warns you against changing them, citing the risk of decreasing the income existing values, but you forge ahead.",
+                'body':"You notice a few unassuming variables at the bottom of the equation.\nA student warns you against changing them, citing the risk of decreasing the income from existing values, but you forge ahead.",
             },
             'chapter3':{
                 'title':'International Recognition',
@@ -166,7 +166,7 @@ localisationTable = { //stupidly large nested dicts of translation table
             },
             'chapter7':{
                 'title':'Mathaholic',
-                'body':"1e500.\n\nA monumentally large number, but barely a blip to you now.\nPeople are starting to take notice as you push mathematics to points thought unachieveable in this field.\nThere's a waiting list to study under you now.\nYour friends and family are expressing concern, worried you're in too deep.\nIt doesn't matter.\nAnother breakthrough is close.\nYou can feel it.\n\n\nRight?",
+                'body':"1e500.\n\nA monumentally large number, but barely a blip to you now.\nPeople are starting to take notice as you push mathematics to points thought unachieveable in this field.\nThere's a waiting list to study under you now.\nYour friends and family are expressing concern, worried you're in too deep.\nIt doesn't matter.\nAnother breakthrough is close.\nYou can feel it.\n\nRight?",
             },
             'chapter8':{
                 'title':'The End',
@@ -182,10 +182,10 @@ localisationTable = { //stupidly large nested dicts of translation table
             }
         }
     },
-    'ru':{ //RUSSIAN
+    'ru':{ //RUSSIAN, OUTDATED
         //thank you to Gyl9Sh for the translation!
         'name':'Последовательные пределы',
-        'description':"\nВы первый ученик ныне ушедшего профессора, и теперь, когда он вышл на пенсию, вам дали звание главного научного сотрудника. Стремясь погрузиться в области, в которых\nизучал ваш старый профессор, вы начинаете изучать концепцию, изложенную в седьмой лемме — последовательные пределы — для продвижения своей карьеры.\nЭта теория исследует концепцию аппроксимаций, используя преобразование формулы Стирлинга для аппроксимации числа Эйлера.\nФормула, названная в честь Джеймса Стерлинга и впервые сформулированная Абрахамом Де Муавром, утверждает, что ln(n!) можно аппроксимировать бесконечной суммой ln(1) + ln(2) .... + ln(n).\nБудьте осторожны - чем ближе ваше приближение к числу Эйлера, тем меньше растет ваш числитель!\nИгра с близким балансом, развлечение для всей семьи (или, по крайней мере, для тех, кто играет в Exponential Idle).\nОтдельное спасибо:\nGilles-Philippe за разработку SDK пользовательской теории, реализацию запрошенных мною функций, предоставление бесчисленных примеров скриптов и помощь в моих многочисленных вопросах и балансировке.\nXelaroc/AlexCord, за ответы на мои бесконечные вопросы, отладку и помощь в понимании того, как сбалансировать теорию, а также за то, что сделали все возможное, чтобы\nнаучить меня, как работают пользовательские теории.\nКоманда бета-тестирования Exponential Idle\n- Команда переводчиков Exponential Idle, к работе которой я присоединился, и без которых эта игра не имела бы того охвата, который она имеет.\n\nНаслаждаться!\nПереведено Gyl9Sh",
+        'description':"\nВы первый ученик ныне ушедшего профессора, и теперь, когда он вышл на пенсию, вам дали звание главного научного сотрудника. Стремясь погрузиться в области, в которых\nизучал ваш старый профессор, вы начинаете изучать концепцию, изложенную в седьмой лемме — последовательные пределы — для продвижения своей карьеры.\nЭта теория исследует концепцию аппроксимаций, используя преобразование формулы Стирлинга для аппроксимации числа Эйлера.\nФормула, названная в честь Джеймса Стерлинга и впервые сформулированная Абрахамом Де Муавром, утверждает, что ln(n!) можно аппроксимировать бесконечной суммой ln(1) + ln(2) .... + ln(n).\nБудьте осторожны - чем ближе ваше приближение к числу Эйлера, тем меньше растет ваш числитель!\nИгра с близким балансом, развлечение для всей семьи (или, по крайней мере, для тех, кто играет в Exponential Idle).\nОтдельное спасибо:\nGilles-Philippe за разработку SDK пользовательской теории, реализацию запрошенных мною функций, предоставление бесчисленных примеров скриптов и помощь в моих многочисленных вопросах и балансировке.\nXelaroc/AlexCord, за ответы на мои бесконечные вопросы, отладку и помощь в понимании того, как сбалансировать теорию, а также за то, что сделали все возможное, чтобы\nнаучить меня, как работают пользовательские теории.\nКоманда бета-тестирования Exponential Idle\n- Команда переводчиков Exponential Idle, к работе которой я присоединился, и без которых эта игра не имела бы того охвата, который она имеет.\n\nНаслаждаться!",
         'authors':'ellipsis',
         'achievements':{   
             'categories':{
@@ -348,6 +348,303 @@ localisationTable = { //stupidly large nested dicts of translation table
                 'title':'',
                 'body':''
             }
+        }
+    },
+    'de':{ //GERMAN
+        //thank you AfuroZamurai for the translation!
+        'name':'Sequenzielle Grenzwerte',
+        'description':'Du bist der erste Student des inzwischen in den Ruhestand getretenen Professors, und nun, da er emeritiert ist, wird dir der Mantel des leitenden Forschers übergeben. Begierig darauf, in die Bereiche einzutauchen, wo dein alter Professor aufgehört hat, beginnst du dich mit dem im siebten Lemma untersuchten Konzept - den sequentiellen Grenzwerten - zu befassen, um deine Karriere voranzutreiben.\n\nDiese Theorie erforscht das Konzept der Approximation mit einer Umstellung der Stirlingformel zur Annäherung der Eulerschen Zahl.\n\nDie nach James Stirling benannte und erstmals von Abraham de Moivre aufgestellte Formel besagt, dass ln(n!) durch die unendliche Summe ln(1) + ln(2) ... + ln(n) angenähert werden kann.\n\nSei vorsichtig - umso genauer deine Approximation der Eulerschen Zahl ist, desto weniger wächst dein Zähler!\n\nEin enges Balancing-Spiel, das der ganzen Familie Spaß macht (oder zumindest denjenigen, die Exponential Idle spielen).\n\nBesonderer Dank an:\nGilles-Philippe, für die Entwicklung des SDKs für eigene Theorien, die Implementierung von Funktionen, die ich mir gewünscht habe, das Bereitstellen von unzähligen Skriptbeispielen, die Hilfe bei meinen zahlreichen Fragen und dem Ausbalancieren.\nXelaroc / Alexcord, um meine unaufhörlichen Fragen zu beantworten, zu debuggen und mir zu helfen, zu verstehen, wie man eine Theorie ausbalanciert und darüber hinaus mich zu lehren, wie eigene Theorien funktionieren.\nDas Exponential Idle Beta Testteam\nDas Exponential Idle Übersetzungteam, zu dessen Arbeit ich beigetragen habe, und ohne die dieses Spiel nicht seine jetzige Reichweite hätte.\n\nViel Spaß!',
+        'authors':'ellipsis',
+        'achievements':{   
+            'categories':{
+                'misc':'Sonstiges',
+                'pubs':'Veröffentlichungen',
+                'precision':'Annäherungspräzision',
+                'sa':'Geheime Erfolge'
+                },
+                'public':{
+                    //publication count achievements
+                    'a1':{
+                        'name':'Amateurischer Autor',
+                        'description':'Veröffentliche einmal.'
+                    },
+                    'a2':{
+                        'name':'Regulärer Reporter',
+                        'description':'Veröffentliche dreimal.'
+                    },
+                    'a3':{
+                        'name':'Studierter Schreiberling',
+                        'description':'Veröffentliche fünfmal.'
+                    },
+                    'a4':{
+                        'name':'Exemplarischer Essayist',
+                        'description':'Veröffentliche zehnmal.'
+                    },
+                    'a5':{
+                        'name':'Professioneller Publizierer',
+                        'description':'Veröffentliche zwanzigmal.'
+                    },
+                    //misc achievements
+                    'a6':{
+                        'name':'Kaufoptimierung',
+                        'description':'Lagere den Kauf von Variablen an deine Studenten aus.'
+                    },
+                    //precision achievements
+                    'a7':{
+                        'name':'Nah genug',
+                        'description':'Approximiere e auf 10^-1 genau.'
+                    },
+                    'a8':{
+                        'name':'Übung in Pingeligkeit',
+                        'description':'Approximiere e auf 10^-5 genau.'
+                    },
+                    'a9':{
+                        'name':'Haarspalterei',
+                        'description':'Approximiere e auf 10^-10 genau.'
+                    },
+                    'a10':{
+                        'name':'Mikroskopisch',
+                        'description':'Approximiere e auf 10^-15 genau.'
+                    },
+                    'a11':{
+                        'name':'Sind wir schon da?',
+                        'description':'Approximiere e auf 10^-50 genau.'
+                    },  
+                    'a12':{
+                        'name':'Subatomar',
+                        'description':'Approximiere e auf 10^-25 genau.'
+                    },
+                    'a13':{
+                        'name':'Planckkleinlichkeit',
+                        'description':'Approximiere e auf 10^-35 genau.'
+                    },
+                    'a14':{
+                        'name':'Präzisionsspieler',
+                        'description':'Approximiere e auf 10^-100 genau.'
+                    },
+                    'a15':{
+                        'name':'Der Platz wird knapp',
+                        'description':'Approximiere e auf 10^-250 genau.'
+                    },
+                    'a16':{
+                        'name':'Du kannst jederzeit aufhören',
+                        'description':'Approximiere e auf 10^-500 genau.'
+                    },
+    
+                },
+                'secret':{
+                    'sa1':{
+                        'name':'Musterfanatiker',
+                        'description':'Forme ein Palindrom mit den Leveln der Variablen.',
+                        'hint':'Palindromisch.'
+                    },
+                    'sa2':{
+                        'name':'l33t5p34k.',
+                        'description':'1337',
+                        'hint':'Elite'
+                    },
+                    'sa3':{
+                        'name':'Im Urlaub',
+                        'description':'Kaufe nichts für eine Stunde nach einer Veröffentlichung.',
+                        'hint':'Etwas vergessen?'
+                    },
+                    'sa4':{
+                        'name':'Sinnlosigkeit',
+                        'description':'Tippe 1000 Mal auf die Gleichung.',
+                        'hint':'Ermüdet'
+                    },
+                }
+        },
+        'story':{
+                'chapter1':{
+                    'title':'Ein neuer Anfang',
+                    'body':'Du kehrst von der Ruhestandsfeier deines alten Professors zurück, der dir, als erstem Studenten, die Leitung des Fachbereichs übergab, die im Laufe der Jahre viele Studenten angezogen hat.\nAufgeregt, endlich als etwas anderes als "et. al" in einem Paper aufgelistet zu werden, fuhrst du mit deiner bestehenden Forschung fort. Als sich jedoch der Fortschritt verlangsamte, fühltest du dich weniger und weniger zufrieden.\nDie Tage werden zu Wochen, die verschwimmen, je mehr Publikationen geschrieben werden.\nSchließlich kommt ein Student mit einem staubigen Foliant, welcher ein bisher unerforschtes Theorem enthält, zu dir.\nBeseelt von Inspiration stellst ein Team aus Studenten zusammen, mit dem du dich in die Forschung stürzt.'
+                    },
+                
+                'chapter2':{
+                    'title':'Risiken eingehen',
+                    'body':'Du bemerkst ein paar bescheidene Variablen unten in der Gleichung.\nEin Student warnt dich davor sie zu ändern, da das Risiko besteht, das Wachstum der existierenden Werte zu verringern, doch du machst weiter.'
+                },
+                'chapter3':{
+                    'title':'Internationale Anerkennung',
+                    'body':'Du veröffentlichst dein erstes Paper mit deinem Namen an vorderster Stelle.\nKollegen gratulieren dir, aber du fühlst, dass etwas fehlt, dass weitere Erkundungen erforderlich sind.\nDu beschließt mit Volldampf weiterzumachen.'
+                },
+                'chapter4':{
+                    'title':'Leichte Änderung',
+                    'body':'Da sich dein Fortschritt verlangsamt, durchkämmst du die ursprünglichen Gleichungen nach einem Heilmittel.\nEs stellt sich heraus, dass es die ganze Zeit einige Modifikatoren gab, die du hinzufügen könntest, allerdings zu ständig steigenden Kosten.\nDu beschließt, einen zu kaufen, in der Hoffnung, dass es deine Probleme lindert ...'
+                },
+                'chapter5':{
+                    'title':'Fortschritte machen',
+                    'body':'Du erreichst 1e100 ρ₁, einen großen Meilenstein in deiner Forschung.\nKollegen kommen, um dir zu gratulieren, weil du deine Forschung so weit voran getrieben hast, aber du zuckst nur die Schultern - du fühlst dich, als könntest du mehr tun.\nDu gehst zurück in dein Büro und einmal mehr beginnst du mit der Arbeit.'
+                },
+                'chapter6':{
+                    'title':'Das Ende ... oder ist es?',
+                    'body':'Du hast endlich jeden Modifikator gekauft, um deine Forschung in diesem Feld abzuschließen.\nDeine Studenten, die an diesem Projekt arbeiten, feiern den Abschluss dieses Forschungsfelds, und dein Name wird weltweit in Zeitschriften veröffentlicht.\nDu entscheidest dich, deine Zahlen noch einmal zu überprüfen, nur um sicherzugehen...'
+                },
+                'chapter7':{
+                    'title':'Mathaholic',
+                    'body':'1e500.\n\nEine monumental große Zahl, aber jetzt kaum ein Blick wert für dich.\nDie Leute fangen an davon Notiz zu nehmen, wie du die \nMathematik in Bereiche vorantreibst, die als unerreichbar galten.\nEs gibt jetzt eine Warteliste, um unter dir zu studieren.\nDeine Freunde und Familie sind besorgt, weil sie befürchten, dass du zu tief drinsteckst.\nEs spielt keine Rolle.\nEin weiterer Durchbruch ist nahe\n\nDu kannst es fühlen.\n\nRichtig?'
+                },
+                'chapter8':{
+                    'title':'Das Ende',
+                    'body':'1e1000.\nEine so große Zahl, dass es unmöglich ist, sie zu begreifen.\nDu hast es geschafft. Sie sagten, du könntest nicht.\nJahre nach dem du begonnen hast, erreichst du ein unglaubliches Ende deiner Forschung.\ndu wirst in der TIME, im Tagesfernsehen, in Zeitungen in der ganzen Welt vorgestellt.\nDeine Paper sind eingerahmt, deine Studenten sind jetzt alle selbst Professoren.\nDu reichst den Mantel an einen deiner jüngeren Studenten weiter, um in den Ruhestand zu gehen, wie dein alter Professor vor all diesen Jahren.\n\nDAS ENDE.\n\nDanke fürs Spielen! - ellipsis'
+                },
+                'chapter9':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter10':{
+                    'title':'',
+                    'body':''
+                }
+        }
+    },
+    'template':{ //TEMPLATE
+        'name':'',
+        'description':'',
+        'authors':'',
+        'achievements':{   
+            'categories':{
+                'misc':'',
+                'pubs':'',
+                'precision':'',
+                'sa':''
+                },
+                'public':{
+                    //publication count achievements
+                    'a1':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a2':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a3':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a4':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a5':{
+                        'name':'',
+                        'description':''
+                    },
+                    //misc achievements
+                    'a6':{
+                        'name':'',
+                        'description':''
+                    },
+                    //precision achievements
+                    'a7':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a8':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a9':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a10':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a11':{
+                        'name':'',
+                        'description':''
+                    },  
+                    'a12':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a13':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a14':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a15':{
+                        'name':'',
+                        'description':''
+                    },
+                    'a16':{
+                        'name':'',
+                        'description':''
+                    },
+    
+                },
+                'secret':{
+                    'sa1':{
+                        'name':'',
+                        'description':'',
+                        'hint':''
+                    },
+                    'sa2':{
+                        'name':'',
+                        'description':'',
+                        'hint':''
+                    },
+                    'sa3':{
+                        'name':'',
+                        'description':'',
+                        'hint':''
+                    },
+                    'sa4':{
+                        'name':'',
+                        'description':'',
+                        'hint':''
+                    },
+                }
+        },
+        'story':{
+                'chapter1':{
+                    'title':'',
+                    'body':''
+                    },
+                
+                'chapter2':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter3':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter4':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter5':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter6':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter7':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter8':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter9':{
+                    'title':'',
+                    'body':''
+                },
+                'chapter10':{
+                    'title':'',
+                    'body':''
+                }
         }
     },
 }
