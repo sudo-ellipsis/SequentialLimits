@@ -874,8 +874,8 @@ var tick = (elapsedTime, multiplier) => {
 //display rho1dot equation
 var getPrimaryEquation = () => { //text for the primary equation
 
-    let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2^";
-    result += '^{' + (gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075) + '}'
+    let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2";
+    result +=  gamma0.level == 0 ? '' : ('^{' + (1 <= gamma0.level <=3 ? (1+gamma0.level*0.02).toFixed(2) : (1.06 + (gamma0.level-3)*0.00075)).toFixed(5+1-((gamma0.level-3)%2)) + '}')
 
     /*—————————————No switches?——————————————
     ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
@@ -918,7 +918,7 @@ var getSecondaryEquation = () => {
 
 
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
-    result += '^{' + (gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075)  + '}'
+    result += gamma2.level == 0 ? '' : ('^{' + (gamma2.level <=2 ? (1+gamma2.level*0.02).toFixed(2) : (1.04 + (gamma2.level-2)*0.00075)).toFixed(5+1-((gamma2.level-2)%2))  + '}')
     // switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -928,7 +928,7 @@ var getSecondaryEquation = () => {
     //         break;
     // }
     result += "b_2"; //add b2 
-    result += + '^{' (gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075) + '}'
+    result += gamma3.level == 0 ? '' : ('^{' + (gamma3.level <=2 ? (1+gamma3.level*0.02).toFixed(2) : (1.04 + (gamma3.level-2)*0.00075)).toFixed(5+1-((gamma3.level-3)%2)) + '}')
     // switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -941,7 +941,7 @@ var getSecondaryEquation = () => {
 
     //render a_3 = 2.x
     result += "a_3 = "; //render a3=
-    result += + '^{' + (gamma1.level <=5 ? 2-gamma1.level*0.008 : 1.96 - (gamma1.level-5)*0.00075) + '}'
+    result += gamma1.level == 0 ? '' : ('^{' + (gamma1.level <=5 ? (2-gamma1.level*0.008).toFixed(3+1-(Math.max((gamma1.level)%5),1)) : (1.96 - (gamma1.level-5)*0.00075)).toFixed(5+1-((gamma1.level-5)%2)) + '}')
     // switch (gamma1.level){ //switch statement based on milestone 2 to change the displayed value of a3
     //     case 0:
     //         result += "2";
