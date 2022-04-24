@@ -1,10 +1,10 @@
-check if the achievements 7-16 have the right trigger conditions
-fix the translation sheet to have updated strings
+Add more progression achievements
+Add 5 more story chapters (Milestone 13, 1100, 1250, Milestone 27, 1500, 2000)
+SA for all other achievement unlocks
 add update popup
+fix the translation sheet to have updated strings
 rework getName, getDescription etc
-add postgame chapters (8-10)
 refactor tick() to be less slow
 find better way to credit translators
-add new SA
 clean out old commented debug code
 re-comment theory
