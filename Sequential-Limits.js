@@ -693,7 +693,7 @@ function isPalindrome(x) { //it probably sucks but also i just copied it from a 
 }
 
 function areLevelsPalindromic() { //seperate function bc why not
-    return isPalindrome(str(a1.level) + str(a2.level) + str(b1.level) + str(b2.level))
+    return isPalindrome(a1.level.toString() + a2.level.toString() + b1.level.toString() + b2.level.toString())
 }
 
 var init = () => {
