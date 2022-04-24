@@ -844,7 +844,7 @@ var init = () => {
 }
 
 var updateGamma0 = () => { //reset the info, desc and equation
-    rho2exp = gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075;
+    rho2exp = Number.parseFloat((gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075).toPrecision(6));
     n = gamma0.level <=3 ? "0.02" : "0.00075";
     gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2",n);
     gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", n);
@@ -852,7 +852,7 @@ var updateGamma0 = () => { //reset the info, desc and equation
 }
 
 var updateGamma1 = () => {
-    a3v = gamma1.level <= 5 ? 2-(gamma1.level*0.008) : 1.96 - (gamma1.level-5)*0.00075;
+    a3v = Number.parseFloat((gamma1.level <= 5 ? 2-(gamma1.level*0.008) : 1.96 - (gamma1.level-5)*0.00075).toPrecision(6));
     n = gamma1.level <=5 ? "0.008" : "0.00075";
     gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",n);
         gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",n);
@@ -861,7 +861,7 @@ var updateGamma1 = () => {
 
 var updateGamma2 = () => {
     n = gamma2.level <=2 ? "0.02" : "0.00075";
-    b1exp = gamma2.level <=2 ? 1+gamma2.level*0.02 : 1.04 + (gamma2.level-2)*0.00075;
+    b1exp = Number.parseFloat((gamma2.level <=2 ? 1+gamma2.level*0.02 : 1.04 + (gamma2.level-2)*0.00075).toPrecision(6));
     gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", n);
     gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",n);
     theory.invalidateSecondaryEquation();    
@@ -870,7 +870,7 @@ var updateGamma2 = () => {
 var updateGamma3 = () => {
     n = gamma3.level <=2 ? "0.02" : "0.00075";
     // n = "0.001"
-    b2exp = gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075;
+    b2exp = Number.parseFloat((gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075).toPrecision(6));
     gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", n);
     gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2",n);
     theory.invalidateSecondaryEquation();        
