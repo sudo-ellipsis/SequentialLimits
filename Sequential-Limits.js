@@ -761,8 +761,8 @@ var init = () => {
     
     {
         gamma0 = theory.createMilestoneUpgrade(0, 6); //create an upgrade of ID 0 and max level 3
-        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", `${gamma0.level <=3 ? "0.02" : "0.00075"}`); //set desc as localisation of "increases rho_2 exponent by 0.02"
-        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.02"); //basically the same but for info button
+        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //set desc as localisation of "increases rho_2 exponent by 0.02"
+        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //basically the same but for info button
         gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation(); //if bought/refunded, force a refresh of the equation
     }
 
@@ -770,24 +770,24 @@ var init = () => {
     //TODO change it to a localisation of decreases lol
     {
         gamma1 = theory.createMilestoneUpgrade(1, 13); //create an upgrade of ID 1 and max level 5
-        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",`${gamma1.level <=5 ? "0.008" : "0.00075"}`); //set desc as localisation of "decreases a3 by 0.008"
-        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",`${gamma1.level <=5 ? "0.008" : "0.00075"}`); //basically the same but for info button
+        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //set desc as localisation of "decreases a3 by 0.008"
+        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //basically the same but for info button
         gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
     
     //milestone 3
     {
         gamma2 = theory.createMilestoneUpgrade(2, 4); //create an upgrade of ID 2 and max level 2
-        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", `${gamma2.level <=2 ? "0.02" : "0.00075"}`); //set desc as localisation of "increases b1 exponent by 0.02"
-        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",`${gamma2.level <=2 ? "0.02" : "0.00075"}`); //basically the same but for info button
+        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", gamma2.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b1 exponent by 0.02"
+        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",gamma2.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
         gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }
 
     //milestone 4
     {
         gamma3 = theory.createMilestoneUpgrade(3, 4); //create an upgrade of ID 3 and max level 2
-        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", `${gamma3.level <=2 ? "0.02" : "0.00075"}`); //set desc as localisation of "increases b2 exponent by 0.02"
-        gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", `${gamma3.level <=2 ? "0.02" : "0.00075"}`); //basically the same but for info button
+        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b2 exponent by 0.02"
+        gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
         gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
     }        
 
@@ -875,7 +875,7 @@ var tick = (elapsedTime, multiplier) => {
 var getPrimaryEquation = () => { //text for the primary equation
 
     let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2^";
-    result += (gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075)
+    result += '^{' + (gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075) + '}'
 
     /*—————————————No switches?——————————————
     ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
@@ -906,19 +906,19 @@ var getPrimaryEquation = () => { //text for the primary equation
     result +="}}{e-\\gamma}";  //close off the square root and add the denominator
 
     //show the approximated value equation
-    result += "\\qquad \\gamma = \\frac{\\rho_3}{\\sqrt[^{\\rho_3}]{\\rho_3 !}}";
-    result += "\\qquad" + theory.latexSymbol + "= \\max{\\rho_1}^{0.1}"; 
+    result += "\\quad \\gamma = \\frac{\\rho_3}{\\sqrt[^{\\rho_3}]{\\rho_3 !}}";
+    result += "\\quad" + theory.latexSymbol + "= \\max{\\rho_1}^{0.1}"; 
     return result; //return the sum of text
 }   
 
 //display rho2dot, rho3dot and a_3 equation
 var getSecondaryEquation = () => { 
     //render rho2dot equation
-    result = "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\qquad "; //static, doesn't need to change. plain latex
+    result = "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\quad "; //static, doesn't need to change. plain latex
 
 
-    result += "{\\dot{\\rho}}_3 = b_1^"; // first part of eq, i.e rho3dot = b1
-    result += (gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075)
+    result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
+    result += '^{' + (gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075)  + '}'
     // switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -927,8 +927,8 @@ var getSecondaryEquation = () => {
     //         result+= "^{\\!1.04}\\!";
     //         break;
     // }
-    result += "b_2^"; //add b2 
-    result += (gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075)
+    result += "b_2"; //add b2 
+    result += + '^{' (gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075) + '}'
     // switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -937,11 +937,11 @@ var getSecondaryEquation = () => {
     //         result+= "^{\\!1.04}\\!";
     //         break;
     // }
-    result += "\\qquad "; //add a space
+    result += "\\quad "; //add a space
 
     //render a_3 = 2.x
     result += "a_3 = "; //render a3=
-    result += (gamma1.level <=5 ? 2-gamma1.level*0.008 : 1.96 - (gamma1.level-5)*0.00075)
+    result += + '^{' + (gamma1.level <=5 ? 2-gamma1.level*0.008 : 1.96 - (gamma1.level-5)*0.00075) + '}'
     // switch (gamma1.level){ //switch statement based on milestone 2 to change the displayed value of a3
     //     case 0:
     //         result += "2";
