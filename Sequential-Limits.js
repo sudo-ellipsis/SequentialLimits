@@ -675,7 +675,7 @@ var aMisc, aPubs, aPrecision, aSecrets; //achievement category variables, not ne
 var gamma0, gamma1, gamma2, gamma3; //create 4 variables that i'll use for milestones - future note, make the names actually mean something next time. fuck thats annoying
 var a3v; //value for a3
 var g0lp = 0, g1lp = 0, g2lp = 0, g3lp = 0; //last value for gamma*.level
-var rho2exp, b1exp, b2exp; //value for the exponents given by gamma upgrades
+var rho2exp = 1, b1exp = 1, b2exp = 1; //value for the exponents given by gamma upgrades
 var rho1dot = BigNumber.ZERO, rho2dot = BigNumber.ZERO, rho3dot = BigNumber.ZERO; //used as drho's
 var inverseE_Gamma; //used for the approximation of e
 var tapCount = 0;
