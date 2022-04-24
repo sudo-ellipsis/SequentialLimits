@@ -861,7 +861,7 @@ var tick = (elapsedTime, multiplier) => {
     //rho2dot equation that supports higher values without crashing lol
     let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - ((gamma1.level <=5 ? 2-gamma1.level*0.008 : 1.96 - (gamma1.level-5)*0.00075)).log() * (currency3.value).log() ) : BigNumber.ZERO;
+    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (Math.log10(gamma1.level <=5 ? 2-gamma1.level*0.008 : 1.96 - (gamma1.level-5)*0.00075)) * (currency3.value).log() ) : BigNumber.ZERO;
     currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
     rho1dot = (currency2.value.pow(gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
