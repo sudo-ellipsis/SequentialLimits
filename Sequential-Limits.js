@@ -1,7 +1,10 @@
-﻿﻿//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778). 
+﻿﻿//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778).
+//thank you to playspout and xelaroc for developing strategies/sims for this theory and giving me invaluable data
+//If you'd like help with your own custom theory, or want to ask about this mess, you can contact me by pinging @ellipsis in #custom-theories-dev in the exponential idle discord server (discord.gg/BGmFwUdBWv).
+//or add me on discord (@ellipsis#1337) but ill probably change the #
+//a desmos graph for the current theory balance can be found at desmos.com/calculator/s9wjqmemkf
+
 //COMMENTS ARE LIKELY OUTDATED
-//If you'd like help with your own custom theory, or want to ask about this mess, you can contact me by pinging @ellipsis in #custom-theories-dev in the exponential idle discord server.
-//or add me on discord (@ellipsis#5369) but ill probably change the #
 
 //ign give me my damn organs back
 
@@ -17,7 +20,7 @@ import { language } from "./api/Localization"
 //probably need to account for empties with an "if", reminder to me in the future
 localisationTable = { //stupidly large nested dicts of translation table
     'en':{ //ENGLISH
-        'name':'Sequential Limits',
+        'name':'Sequential Limits Beta',
         'description':"You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor left off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, whose work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!",
         'authors':'ellipsis',
         'achievements':{   
@@ -763,7 +766,7 @@ var init = () => {
         gamma0 = theory.createMilestoneUpgrade(0, 6); //create an upgrade of ID 0 and max level 3
         gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //set desc as localisation of "increases rho_2 exponent by 0.02"
         gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //basically the same but for info button
-        gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation(); //if bought/refunded, force a refresh of the equation
+        gamma0.boughtOrRefunded = (_) =>  updateGamma0(); // if bought or refunded, call the update function
     }
 
     //milestone 2
@@ -772,7 +775,7 @@ var init = () => {
         gamma1 = theory.createMilestoneUpgrade(1, 13); //create an upgrade of ID 1 and max level 5
         gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //set desc as localisation of "decreases a3 by 0.008"
         gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //basically the same but for info button
-        gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
+        gamma1.boughtOrRefunded = (_) => updateGamma1(); //if bought/refunded, force a refresh of the equation
     }
     
     //milestone 3
@@ -780,7 +783,7 @@ var init = () => {
         gamma2 = theory.createMilestoneUpgrade(2, 4); //create an upgrade of ID 2 and max level 2
         gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", gamma2.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b1 exponent by 0.02"
         gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",gamma2.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
-        gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
+        gamma2.boughtOrRefunded = (_) => updateGamma2(); //if bought/refunded, force a refresh of the equation
     }
 
     //milestone 4
@@ -788,7 +791,7 @@ var init = () => {
         gamma3 = theory.createMilestoneUpgrade(3, 4); //create an upgrade of ID 3 and max level 2
         gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b2 exponent by 0.02"
         gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
-        gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation
+        gamma3.boughtOrRefunded = (_) => updateGamma3(); //if bought/refunded, force a refresh of the equation
     }        
 
     //utilities
@@ -837,6 +840,35 @@ var init = () => {
     chapter7 = theory.createStoryChapter(7, locale.story.chapter8.title, locale.story.chapter8.body, () => currency.value >= BigNumber.From("1e1000"));
 }
 
+var updateGamma0 = () => { //reset the info, desc and equation
+    n = gamma0.level <=3 ? "0.02" : "0.00075";
+    gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2",n);
+    gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", n);
+    theory.invalidatePrimaryEquation();
+}
+
+var updateGamma1 = () => {
+    n = gamma1.level <=5 ? "0.008" : "0.00075";
+    gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",n);
+        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",n);
+    theory.invalidateTertiaryEquation();
+}
+
+var updateGamma2 = () => {
+    n = gamma2.level <=2 ? "0.02" : "0.00075";
+    gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", n);
+    gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",n);
+    theory.invalidateSecondaryEquation();    
+}
+
+var updateGamma3 = () => {
+    n = gamma3.level <=2 ? "0.02" : "0.00075";
+    // n = "0.001"
+    gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", n);
+    gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2",n);
+    theory.invalidateSecondaryEquation();        
+}
+
 var updateInverseE_Gamma = () => {
     let two_pi_rho = BigNumber.TWO * BigNumber.PI * currency3.value; //precalculation of values for tick function
     if (currency3.value < 1000) {
@@ -875,7 +907,7 @@ var tick = (elapsedTime, multiplier) => {
 var getPrimaryEquation = () => { //text for the primary equation
 
     let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2";
-    result +=  gamma0.level == 0 ? '' : ('^{' + (1 <= gamma0.level <=3 ? (1+gamma0.level*0.02).toFixed(2) : (1.06 + (gamma0.level-3)*0.00075)).toFixed(5+1-((gamma0.level-3)%2)) + '}')
+    result +=  gamma0.level == 0 ? '' : ('^{' + (gamma0.level <=3 ? (1+gamma0.level*0.02).toFixed(2) : (1.06 + (gamma0.level-3)*0.00075).toFixed(4 + (gamma0.level-3) % 2)) + '}')
 
     /*—————————————No switches?——————————————
     ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
@@ -914,11 +946,11 @@ var getPrimaryEquation = () => { //text for the primary equation
 //display rho2dot, rho3dot and a_3 equation
 var getSecondaryEquation = () => { 
     //render rho2dot equation
-    result = "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\quad "; //static, doesn't need to change. plain latex
+    result = "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\qquad "; //static, doesn't need to change. plain latex
 
 
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
-    result += gamma2.level == 0 ? '' : ('^{' + (gamma2.level <=2 ? (1+gamma2.level*0.02).toFixed(2) : (1.04 + (gamma2.level-2)*0.00075)).toFixed(5+1-((gamma2.level-2)%2))  + '}')
+    result += gamma2.level == 0 ? '' : ('^{' + (gamma2.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma2.level-2)*0.00075).toFixed(4 + (gamma2.level-3) % 2)) + '}\\,')
     // switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -928,7 +960,7 @@ var getSecondaryEquation = () => {
     //         break;
     // }
     result += "b_2"; //add b2 
-    result += gamma3.level == 0 ? '' : ('^{' + (gamma3.level <=2 ? (1+gamma3.level*0.02).toFixed(2) : (1.04 + (gamma3.level-2)*0.00075)).toFixed(5+1-((gamma3.level-3)%2)) + '}')
+    result += gamma3.level == 0 ? '' : ('^{' + (gamma3.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma3.level-2)*0.00075).toFixed(4 + (gamma3.level-3) % 2)) + '}');
     // switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -937,11 +969,11 @@ var getSecondaryEquation = () => {
     //         result+= "^{\\!1.04}\\!";
     //         break;
     // }
-    result += "\\quad "; //add a space
+    
+    // result += "\\; "; //add a space
 
     //render a_3 = 2.x
-    result += "a_3 = "; //render a3=
-    result += gamma1.level == 0 ? '' : ('^{' + (gamma1.level <=5 ? (2-gamma1.level*0.008).toFixed(3+1-(Math.max((gamma1.level)%5),1)) : (1.96 - (gamma1.level-5)*0.00075)).toFixed(5+1-((gamma1.level-5)%2)) + '}')
+    
     // switch (gamma1.level){ //switch statement based on milestone 2 to change the displayed value of a3
     //     case 0:
     //         result += "2";
@@ -960,26 +992,28 @@ var getSecondaryEquation = () => {
     //         break;
     //     case 5:
     //         result += "1.96";
-    //         break;            
-    // }
-    return result; //return the sum of text
+    //         break;      
+    return result;      
 }
-
+  
 //display values considered useful that aren't in the currency bar
 var getTertiaryEquation = () => {
     let result = "e - \\gamma = ";
-    if(inverseE_Gamma <= 10000) //arbitrary number that xelaroc said was ok
+    if(inverseE_Gamma <= 10000){ //arbitrary number that xelaroc said was ok
     result += (BigNumber.ONE/inverseE_Gamma).toString(4);
-else { //wizard fuckery. note to future self: do not touch
-    let exp = 1+Math.floor(inverseE_Gamma.log10().toNumber()),
+    } else { //wizard fuckery. note to future self: do not touch
+        let exp = 1+Math.floor(inverseE_Gamma.log10().toNumber()),
         mts = ((BigNumber.TEN.pow(exp)/inverseE_Gamma).toString());
-    result += `${mts}e\\text{-}${exp}`
-}
+        result += `${mts}e\\text{-}${exp}`
+    }
     result +=", \\;\\dot{\\rho}_2 = "; //display rho2dot to a degree of granularity depending on its size, then move to next segment 
     result += rho2dot.toString(3);
 
     result += ", \\;\\dot{\\rho}_3 = "; //display rho3dot to a degree of granularity depending on its size, then move to next segment 
     result += rho3dot.toString(3);
+
+    result += ", \\;a_3 = "; //render a3=
+    result += gamma1.level == 0 ? '2' : (gamma1.level <=5 ? (2 - gamma1.level*0.008).toFixed(2 + Math.min(gamma1.level % 5,1)) : (1.96 - (gamma1.level-5)*0.00075).toFixed(4 + Math.min(((gamma1.level-5) % 2) + Math.min(1,(gamma1.level-5) % 4) - ((gamma1.level-4) % 2),1 ) ));
 
     return result ; //return the sum of text    
 
