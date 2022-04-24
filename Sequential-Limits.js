@@ -20,7 +20,7 @@ import { language } from "./api/Localization"
 //probably need to account for empties with an "if", reminder to me in the future
 localisationTable = { //stupidly large nested dicts of translation table
     'en':{ //ENGLISH
-        'name':'Sequential Limits Beta',
+        'name':'Sequential Limits',
         'description':"You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor left off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, whose work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!",
         'authors':'ellipsis',
         'achievements':{   
@@ -673,6 +673,9 @@ var numPublications = 0; //number of publications
 var aMisc, aPubs, aPrecision, aSecrets; //achievement category variables, not needed but i get warns otherwise and warns make me sad
 
 var gamma0, gamma1, gamma2, gamma3; //create 4 variables that i'll use for milestones - future note, make the names actually mean something next time. fuck thats annoying
+var a3v; //value for a3
+var g0lp = 0, g1lp = 0, g2lp = 0, g3lp = 0; //last value for gamma*.level
+var rho2exp, b1exp, b2exp; //value for the exponents given by gamma upgrades
 var rho1dot = BigNumber.ZERO, rho2dot = BigNumber.ZERO, rho3dot = BigNumber.ZERO; //used as drho's
 var inverseE_Gamma; //used for the approximation of e
 var tapCount = 0;
@@ -759,14 +762,14 @@ var init = () => {
 
 
     //// Milestone Upgrades
-    theory.setMilestoneCost(new CompositeCost(12, new LinearCost(2.5, 2.5), new LinearCost(102,2))); //first 12 milestones are every e25 rho, then the next ones are every e20 after e1000
+    theory.setMilestoneCost(new CompositeCost(12, new LinearCost(2.5, 2.5), new LinearCost(100,2))); //first 12 milestones are every e25 rho, then the next ones are every e20 after e1000
     //milestone 1
     
     {
         gamma0 = theory.createMilestoneUpgrade(0, 6); //create an upgrade of ID 0 and max level 3
         gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //set desc as localisation of "increases rho_2 exponent by 0.02"
         gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //basically the same but for info button
-        gamma0.boughtOrRefunded = (_) =>  updateGamma0(); // if bought or refunded, call the update function
+        // gamma0.boughtOrRefunded = (_) =>  updateGamma0(); // if bought or refunded, call the update function
     }
 
     //milestone 2
@@ -775,15 +778,15 @@ var init = () => {
         gamma1 = theory.createMilestoneUpgrade(1, 13); //create an upgrade of ID 1 and max level 5
         gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //set desc as localisation of "decreases a3 by 0.008"
         gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //basically the same but for info button
-        gamma1.boughtOrRefunded = (_) => updateGamma1(); //if bought/refunded, force a refresh of the equation
+        // gamma1.boughtOrRefunded = (_) => updateGamma1(); //if bought/refunded, force a refresh of the equation
     }
-    
+
     //milestone 3
     {
         gamma2 = theory.createMilestoneUpgrade(2, 4); //create an upgrade of ID 2 and max level 2
         gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", gamma2.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b1 exponent by 0.02"
         gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",gamma2.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
-        gamma2.boughtOrRefunded = (_) => updateGamma2(); //if bought/refunded, force a refresh of the equation
+        // gamma2.boughtOrRefunded = (_) => updateGamma2(); //if bought/refunded, force a refresh of the equation
     }
 
     //milestone 4
@@ -791,7 +794,7 @@ var init = () => {
         gamma3 = theory.createMilestoneUpgrade(3, 4); //create an upgrade of ID 3 and max level 2
         gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b2 exponent by 0.02"
         gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
-        gamma3.boughtOrRefunded = (_) => updateGamma3(); //if bought/refunded, force a refresh of the equation
+        // gamma3.boughtOrRefunded = (_) => updateGamma3(); //if bought/refunded, force a refresh of the equation
     }        
 
     //utilities
@@ -841,6 +844,7 @@ var init = () => {
 }
 
 var updateGamma0 = () => { //reset the info, desc and equation
+    rho2exp = gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075;
     n = gamma0.level <=3 ? "0.02" : "0.00075";
     gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2",n);
     gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", n);
@@ -848,6 +852,7 @@ var updateGamma0 = () => { //reset the info, desc and equation
 }
 
 var updateGamma1 = () => {
+    a3v = gamma1.level <= 5 ? 2-(gamma1.level*0.008) : 1.96 - (gamma1.level-5)*0.00075;
     n = gamma1.level <=5 ? "0.008" : "0.00075";
     gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",n);
         gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",n);
@@ -856,6 +861,7 @@ var updateGamma1 = () => {
 
 var updateGamma2 = () => {
     n = gamma2.level <=2 ? "0.02" : "0.00075";
+    b1exp = gamma2.level <=2 ? 1+gamma2.level*0.02 : 1.04 + (gamma2.level-2)*0.00075;
     gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", n);
     gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",n);
     theory.invalidateSecondaryEquation();    
@@ -864,6 +870,7 @@ var updateGamma2 = () => {
 var updateGamma3 = () => {
     n = gamma3.level <=2 ? "0.02" : "0.00075";
     // n = "0.001"
+    b2exp = gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075;
     gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", n);
     gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2",n);
     theory.invalidateSecondaryEquation();        
@@ -886,16 +893,33 @@ var tick = (elapsedTime, multiplier) => {
 
     let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
     
-    rho3dot = (getb1(b1.level).pow(gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075) * getb2(b2.level).pow(gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075)); //rho3dot is equal to b1.value * b2.value accounting for exponenents
+    if (gamma0.level != g0lp){
+        g0lp = gamma0.level
+        updateGamma0();
+    }
+    if (gamma1.level != g1lp){ //update the stored a3 value if the gamma level changes. Required for an edge case
+        g1lp = gamma1.level
+        updateGamma1();
+    }
+    if (gamma2.level != g1lp){
+        g2lp = gamma2.level
+        updateGamma2();
+    }
+    if (gamma3.level != g3lp){
+        g2lp = gamma2.level
+        updateGamma3();
+    }
+
+    rho3dot = getb1(b1.level).pow(b1exp) * getb2(b2.level).pow(b2exp); //rho3dot is equal to b1.value * b2.value accounting for exponenents
     currency3.value += rho3dot*dt; //increase currency3.value by rho3dot*dt
     updateInverseE_Gamma();
    
     //rho2dot equation that supports higher values without crashing lol
     let a1v = geta1(a1.level), a2v = geta2(a2.level);
 //    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - ((BigNumber.from(gamma1.level <=5 ? 2-gamma1.level*0.008 : 1.96 - (gamma1.level-5)*0.00075) ) * currency3.value.log()) ) : BigNumber.ZERO;
+    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.from(a3v) * currency3.value.log()) ) : BigNumber.ZERO;
     currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
-    rho1dot = (currency2.value.pow(BigNumber.from(gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075)).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
+    rho1dot = (currency2.value.pow(BigNumber.from(rho2exp))).sqrt()*(inverseE_Gamma); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
     
     t += elapsedTime;
@@ -907,7 +931,8 @@ var tick = (elapsedTime, multiplier) => {
 var getPrimaryEquation = () => { //text for the primary equation
 
     let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2";
-    result +=  gamma0.level == 0 ? '' : ('^{' + (gamma0.level <=3 ? (1+gamma0.level*0.02).toFixed(2) : (1.06 + (gamma0.level-3)*0.00075).toFixed(4 + (gamma0.level-3) % 2)) + '}')
+    result += '^{' + rho2exp + '}';
+    // result +=  gamma0.level == 0 ? '' : ('^{' + (gamma0.level <=3 ? (1+gamma0.level*0.02).toFixed(2) : (1.06 + (gamma0.level-3)*0.00075).toFixed(4 + (gamma0.level-3) % 2)) + '}')
 
     /*—————————————No switches?——————————————
     ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
@@ -950,7 +975,8 @@ var getSecondaryEquation = () => {
 
 
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
-    result += gamma2.level == 0 ? '' : ('^{' + (gamma2.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma2.level-2)*0.00075).toFixed(4 + (gamma2.level-3) % 2)) + '}\\,')
+    result += '^{' + b1exp + '}'
+    // result += gamma2.level == 0 ? '' : ('^{' + (gamma2.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma2.level-2)*0.00075).toFixed(4 + (gamma2.level-3) % 2)) + '}\\,')
     // switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -959,8 +985,9 @@ var getSecondaryEquation = () => {
     //         result+= "^{\\!1.04}\\!";
     //         break;
     // }
-    result += "b_2"; //add b2 
-    result += gamma3.level == 0 ? '' : ('^{' + (gamma3.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma3.level-2)*0.00075).toFixed(4 + (gamma3.level-3) % 2)) + '}');
+    result += "b_2"; //add b2
+    result += '^{' + b2exp + '}' 
+    // result += gamma3.level == 0 ? '' : ('^{' + (gamma3.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma3.level-2)*0.00075).toFixed(4 + (gamma3.level-3) % 2)) + '}');
     // switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
     //         result+= "^{\\!1.02}\\!";
@@ -1013,7 +1040,9 @@ var getTertiaryEquation = () => {
     result += rho3dot.toString(3);
 
     result += ", \\;a_3 = "; //render a3=
-    result += gamma1.level == 0 ? '2' : (gamma1.level <=5 ? (2 - gamma1.level*0.008).toFixed(2 + Math.min(gamma1.level % 5,1)) : (1.96 - (gamma1.level-5)*0.00075).toFixed(4 + Math.min(((gamma1.level-5) % 2) + Math.min(1,(gamma1.level-5) % 4) - ((gamma1.level-4) % 2),1 ) ));
+    result += a3v
+    
+    // result += gamma1.level == 0 ? '2' : (gamma1.level <=5 ? (2 - gamma1.level*0.008).toFixed(2 + Math.min(gamma1.level % 5,1)) : (1.96 - (gamma1.level-5)*0.00075).toFixed(4 + Math.min(((gamma1.level-5) % 2) + Math.min(1,(gamma1.level-5) % 4) - ((gamma1.level-4) % 2),1 ) ));
 
     return result ; //return the sum of text    
 
@@ -1045,6 +1074,7 @@ var setInternalState = (state) => { //set the internal state of values that need
     if (values.length > 1) inverseE_Gamma = parseBigNumber(values[1]); //save the value of inverseE_Gamma numbers to slot 1
     if (values.length > 2) tapCount = parseInt(values[2]);
     if (values.length > 3) t = Number.parseFloat(values[3]);
+    // if (values.length > 4) gamma1.level = parseInt(values[4]);
 }
 
 var getInternalState = () => `${numPublications} ${inverseE_Gamma} ${tapCount} ${t}` //return the data saved
