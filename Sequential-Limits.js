@@ -1,4 +1,6 @@
-﻿﻿//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778).
+﻿﻿//abandon all hope, ye who wish to see quality code.
+
+//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778).
 //thank you to playspout and xelaroc for developing strategies/sims for this theory and giving me invaluable data
 //If you'd like help with your own custom theory, or want to ask about this mess, you can contact me by pinging @ellipsis in #custom-theories-dev in the exponential idle discord server (discord.gg/BGmFwUdBWv).
 //or add me on discord (@ellipsis#1337) but ill probably change the #
@@ -12,9 +14,14 @@
 import { ExponentialCost, FirstFreeCost, LinearCost, CustomCost, CompositeCost } from "./api/Costs"; 
 import { Localization } from "./api/Localization";
 import { parseBigNumber, BigNumber } from "./api/BigNumber";
-import { theory } from "./api/Theory";
+import { Theory, theory } from "./api/Theory";
 import { Utils } from "./api/Utils";
 import { language } from "./api/Localization"
+import { ui } from "./api/ui/UI"
+import { FontAttributes } from "./api/ui/properties/FontAttributes";
+import { TextAlignment } from "./api/ui/properties/TextAlignment";
+import { FontFamily } from "./api/ui/properties/FontFamily";
+
 
 //godawful localisation table bc this is how i'm doing it. cope about it
 //probably need to account for empties with an "if", reminder to me in the future
@@ -660,13 +667,13 @@ if (localisationTable[Localization.language]){ //if it's in the localisation tab
 }
 else locale = localisationTable.en;
 
-var id = "SequentialLimits"; //must be unique, make sure to change it 
+var id = "SequentialLimits-Test"; //must be unique, make sure to change it 
 var name = 'Sequential Limits' //dummy, as the game won't allow anything other than a literal for first load
 var description = "You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!" //ditto
 var authors = 'ellipsis' //ditto again
-var version = 9; //version id, make sure to change it on update
+var version = 10; //version id, make sure to change it on update
 
-var currency = theory.createCurrency(), currency2 = theory.createCurrency(), currency3 = theory.createCurrency(); //create three currency variables and list them as currencies
+var currency = theory.createCurrency('ρ\0','\rho'), currency2 = theory.createCurrency('ρ','\rho_2'), currency3 = theory.createCurrency('ρ','\rho_3'); //create three currency variables and list them as currencies. busted workaround for currency numbers
 var a1, a2, b1, b2; //set a1, a2, b1, b2 levels
 var numPublications = 0; //number of publications
 
@@ -680,6 +687,10 @@ var rho1dot = BigNumber.ZERO, rho2dot = BigNumber.ZERO, rho3dot = BigNumber.ZERO
 var inverseE_Gamma; //used for the approximation of e
 var tapCount = 0;
 var t = 0;
+
+var liver = 'not stolen' //joke variable
+// var lastKnownVersion = 9
+var showPopUp = false;
 
 function isPalindrome(x) { //it probably sucks but also i just copied it from a past project
     // console.log('recieved string ' + x)
@@ -715,7 +726,6 @@ var init = () => {
     theory.secondaryEquationHeight = 35; //set height of second equation
     theory.secondaryEquationScale = 1.25; //makes the secondary eq look 25% bigger
     updateInverseE_Gamma();
-
     // Regular Upgrades   
     // DONT EVEN FUCKING THINK ABOUT IT. NO MORE BALANCE CHANGES 
     // a1
@@ -763,8 +773,8 @@ var init = () => {
 
     //// Milestone Upgrades
     theory.setMilestoneCost(new CompositeCost(12, new LinearCost(2.5, 2.5), new LinearCost(100,2))); //first 12 milestones are every e25 rho, then the next ones are every e20 after e1000
-    //milestone 1
     
+    //milestone 1
     {
         gamma0 = theory.createMilestoneUpgrade(0, 6); //create an upgrade of ID 0 and max level 3
         gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //set desc as localisation of "increases rho_2 exponent by 0.02"
@@ -773,7 +783,6 @@ var init = () => {
     }
 
     //milestone 2
-    //TODO change it to a localisation of decreases lol
     {
         gamma1 = theory.createMilestoneUpgrade(1, 13); //create an upgrade of ID 1 and max level 5
         gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //set desc as localisation of "decreases a3 by 0.008"
@@ -841,10 +850,14 @@ var init = () => {
     chapter6 = theory.createStoryChapter(5, locale.story.chapter6.title,locale.story.chapter6.body, () => gamma0.level == 3 && gamma1.level == 5 && gamma2.level == 2 && gamma3.level == 2); //unlock a story when all milestone levels have been purchased    
     chapter6 = theory.createStoryChapter(6, locale.story.chapter7.title,locale.story.chapter7.body, () => currency.value >= BigNumber.From("1e500"));
     chapter7 = theory.createStoryChapter(7, locale.story.chapter8.title, locale.story.chapter8.body, () => currency.value >= BigNumber.From("1e1000"));
+
+    checkPopup();
+    updateGamma0(); updateGamma1(); updateGamma2(); updateGamma3();
 }
 
 var updateGamma0 = () => { //reset the info, desc and equation
     rho2exp = Number.parseFloat((gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075).toPrecision(6));
+    rho2expDisp = gamma0.level == 0 ? '' : rho2exp
     n = gamma0.level <=3 ? "0.02" : "0.00075";
     gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2",n);
     gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", n);
@@ -862,6 +875,7 @@ var updateGamma1 = () => {
 var updateGamma2 = () => {
     n = gamma2.level <=2 ? "0.02" : "0.00075";
     b1exp = Number.parseFloat((gamma2.level <=2 ? 1+gamma2.level*0.02 : 1.04 + (gamma2.level-2)*0.00075).toPrecision(6));
+    b1expDisp = gamma2.level == 0 ? '' : b1exp
     gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", n);
     gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",n);
     theory.invalidateSecondaryEquation();    
@@ -871,6 +885,7 @@ var updateGamma3 = () => {
     n = gamma3.level <=2 ? "0.02" : "0.00075";
     // n = "0.001"
     b2exp = Number.parseFloat((gamma3.level <=2 ? 1+gamma3.level*0.02 : 1.04 + (gamma3.level-2)*0.00075).toPrecision(6));
+    b2expDisp = gamma3.level == 0 ? '' : b2exp
     gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", n);
     gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2",n);
     theory.invalidateSecondaryEquation();        
@@ -887,10 +902,143 @@ var updateInverseE_Gamma = () => {
     }
 }
 
+// var doUpdatePopup = () => {
+//     updatePopup.show()
+// }
+var checkPopup = () => {
+    if (showPopUp && !game.isCalculatingOfflineProgress) {
+        showPopUp = false;
+        showUpdatePopup();
+    }
+}
+
+var showUpdatePopup = () => {
+    updatePopup = ui.createPopup({
+        title: 'What\'s New:',
+        content: ui.createScrollView({
+            content: ui.createStackLayout({
+                children: [
+                    ui.createLabel({
+                        text:'Version 1.2.0 BETA',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Added new milestone levels \n\u2022 Further optimised calculation time \n\u2022 Made changes for the UI to move clutter\n\u2022 Added a "What\'s New" popup - thank you Gilles-Philippe!\n\u2022 Changed the symbol for the first currency to have no subscript\n\u2022 Removed liver',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.1.2',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Added support for German - Thank you to AfuroZamurai for translating!\n\u2022 Fixed the achievement 7 trigger condition\n\u2022 Made the SA1 achievement more lenient to obtain\n\u2022 Optimised the theory to reduce offline time somewhat\n\u2022 Fixed typographical errors - thank you to AfuroZamurai and Spqcey',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.1.1',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Added support for Russian - Thank you to Gyl9Sh for translating!',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.1.0',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Added support for community translation. Translation is automatic based on the current game language. If a language is not detected, the default is english. If you wish to help with translating Sequential Limits to another language, join the discord from the link in the game settings page and check the translations channel. \n\u2022 Milestone and publication goals now show ρ required instead of τ\n\u2022 De-encrypted secret achievement and story chapter text',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.0.4',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\n\u2022 Fixed major bug that caused save strings to balloon to hundreds of thousands of characters - thank you Ignacio Di Leva\n\u2022 Made secret achievement 1 easier to get\n\u2022 Fixed a typo in the description',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.0.3',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Made secret achievement 4 harder to get\n\u2022 Made variable level info more precise\n\u2022 Made publication achievements trigger correctly again\n\u2022 Removed effective ρ cap of 1e1000\n\u2022 Updated description to be more readable',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.0.2',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Fixed achivement 6 to actually trigger.\u2022 Corrected the publication requirements for publication based achievements',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.0.1',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Updated chapters to fix coherency issues.',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createLabel({
+                        text:'\nVersion 1.0.0',
+                        fontAttributes:FontAttributes.BOLD,
+                        horizontalTextAlignment:TextAlignment.CENTER,
+                        fontSize:20,
+                    }),
+                    ui.createLabel({
+                        text:'\u2022 Initial theory release.',
+                        lineHeight:1,
+                        fontSize: 15
+                    }),
+                    ui.createButton({
+                        text:'Close',
+                        onClicked: () => {
+                            updatePopup.hide()
+                        }
+                    })
+
+                ]    
+            }),
+        }),
+        // onDisappearing: () => log('skunch'),
+    })
+    updatePopup.show();
+    // setInternalState(theory.state);
+}
+
+
+
 //function that runs every tick, i.e tick math
 //DO NOT TOUCH ON PAIN OF DEATH. YES THIS MEANS YOU, FUTURE ME
 var tick = (elapsedTime, multiplier) => {
-
+    checkPopup();
     let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
     
     if (gamma0.level != g0lp){
@@ -929,9 +1077,10 @@ var tick = (elapsedTime, multiplier) => {
 
 //display rho1dot equation
 var getPrimaryEquation = () => { //text for the primary equation
-
-    let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2";
-    result += '^{' + rho2exp + '}';
+    let result = "\\dot{\\rho} =";
+    // result += '\\frac{c_3 e^{-a_3} }{1 + e^{\\rho_4}} \\cdot ';
+    result += '\\frac{\\sqrt{\\rho_2';
+    result += gamma0.level == 0 ? '' : '^{' + rho2expDisp + '}';
     // result +=  gamma0.level == 0 ? '' : ('^{' + (gamma0.level <=3 ? (1+gamma0.level*0.02).toFixed(2) : (1.06 + (gamma0.level-3)*0.00075).toFixed(4 + (gamma0.level-3) % 2)) + '}')
 
     /*—————————————No switches?——————————————
@@ -964,7 +1113,7 @@ var getPrimaryEquation = () => { //text for the primary equation
 
     //show the approximated value equation
     result += "\\quad \\gamma = \\frac{\\rho_3}{\\sqrt[^{\\rho_3}]{\\rho_3 !}}";
-    result += "\\quad" + theory.latexSymbol + "= \\max{\\rho_1}^{0.1}"; 
+    result += "\\quad" + theory.latexSymbol + "= \\max{\\rho}^{0.1}"; 
     return result; //return the sum of text
 }   
 
@@ -975,7 +1124,7 @@ var getSecondaryEquation = () => {
 
 
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
-    result += '^{' + b1exp + '}'
+    result += '^{' + b1expDisp + '}\\,'
     // result += gamma2.level == 0 ? '' : ('^{' + (gamma2.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma2.level-2)*0.00075).toFixed(4 + (gamma2.level-3) % 2)) + '}\\,')
     // switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
@@ -986,7 +1135,9 @@ var getSecondaryEquation = () => {
     //         break;
     // }
     result += "b_2"; //add b2
-    result += '^{' + b2exp + '}' 
+    result += '^{' + b2expDisp + '}\\,' 
+
+    // result += '\\qquad \\dot{\\rho}_4 = c_1 c_2'
     // result += gamma3.level == 0 ? '' : ('^{' + (gamma3.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma3.level-2)*0.00075).toFixed(4 + (gamma3.level-3) % 2)) + '}');
     // switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
     //     case 1:
@@ -1056,6 +1207,7 @@ var getEquationOverlay = () => ui.createGrid({ //taken from Probability Theory
 })
 
 var postPublish = ()  => {
+    liver = 'stolen'
     //force update all equations
     theory.invalidatePrimaryEquation(); 
     theory.invalidateSecondaryEquation();
@@ -1074,10 +1226,15 @@ var setInternalState = (state) => { //set the internal state of values that need
     if (values.length > 1) inverseE_Gamma = parseBigNumber(values[1]); //save the value of inverseE_Gamma numbers to slot 1
     if (values.length > 2) tapCount = parseInt(values[2]);
     if (values.length > 3) t = Number.parseFloat(values[3]);
-    // if (values.length > 4) gamma1.level = parseInt(values[4]);
+    if (values.length > 4) liver = values[4];
+    if (values.length > 5) saveVersion = parseInt(values[5]);
+
+    if (saveVersion != version){
+        showPopUp = true;
+    }
 }
 
-var getInternalState = () => `${numPublications} ${inverseE_Gamma} ${tapCount} ${t}` //return the data saved
+var getInternalState = () => `${numPublications} ${inverseE_Gamma} ${tapCount} ${t} ${liver} ${version}` //return the data saved
 
 var getPublicationMultiplier = (tau) => tau.pow(1.5); //publication mult bonus is (tau^0.15)*100
 var getPublicationMultiplierFormula = (symbol) => /*"10 · " +*/ symbol + "^{1.5}"; //text to render for publication mult ext
