@@ -690,7 +690,7 @@ var t = 0;
 
 var liver = 'not stolen' //joke variable
 // var lastKnownVersion = 9
-var showPopUp = false;
+// var showPopUp = false;
 
 function isPalindrome(x) { //it probably sucks but also i just copied it from a past project
     // console.log('recieved string ' + x)
@@ -851,7 +851,6 @@ var init = () => {
     chapter6 = theory.createStoryChapter(6, locale.story.chapter7.title,locale.story.chapter7.body, () => currency.value >= BigNumber.From("1e500"));
     chapter7 = theory.createStoryChapter(7, locale.story.chapter8.title, locale.story.chapter8.body, () => currency.value >= BigNumber.From("1e1000"));
 
-    checkPopup();
     updateGamma0(); updateGamma1(); updateGamma2(); updateGamma3();
 }
 
@@ -905,12 +904,12 @@ var updateInverseE_Gamma = () => {
 // var doUpdatePopup = () => {
 //     updatePopup.show()
 // }
-var checkPopup = () => {
-    if (showPopUp && !game.isCalculatingOfflineProgress) {
-        showPopUp = false;
-        showUpdatePopup();
-    }
-}
+// var checkPopup = () => {
+//     if (showPopUp && !game.isCalculatingOfflineProgress) {
+//         showPopUp = false;
+//         showUpdatePopup();
+//     }
+// }
 
 var showUpdatePopup = () => {
     updatePopup = ui.createPopup({
@@ -1038,7 +1037,7 @@ var showUpdatePopup = () => {
 //function that runs every tick, i.e tick math
 //DO NOT TOUCH ON PAIN OF DEATH. YES THIS MEANS YOU, FUTURE ME
 var tick = (elapsedTime, multiplier) => {
-    checkPopup();
+    // checkPopup();
     let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
     
     if (gamma0.level != g0lp){
@@ -1230,7 +1229,7 @@ var setInternalState = (state) => { //set the internal state of values that need
     if (values.length > 5) saveVersion = parseInt(values[5]);
 
     if (saveVersion != version){
-        showPopUp = true;
+        showUpdatePopup();
     }
 }
 
