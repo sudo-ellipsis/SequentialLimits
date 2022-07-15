@@ -3,7 +3,7 @@
 //uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778).
 //thank you to playspout and xelaroc for developing strategies/sims for this theory and giving me invaluable data
 //If you'd like help with your own custom theory, or want to ask about this mess, you can contact me by pinging @ellipsis in #custom-theories-dev in the exponential idle discord server (discord.gg/BGmFwUdBWv).
-//or add me on discord (@ellipsis#1337) but ill probably change the #
+//or add me on discord (@ellipsis#1984) but ill probably change the #
 //a desmos graph for the current theory balance can be found at desmos.com/calculator/s9wjqmemkf
 
 //COMMENTS ARE LIKELY OUTDATED
@@ -772,39 +772,38 @@ var init = () => {
 
 
     //// Milestone Upgrades
-    theory.setMilestoneCost(new CompositeCost(12, new LinearCost(2.5, 2.5), new LinearCost(100,2))); //first 12 milestones are every e25 rho, then the next ones are every e20 after e1000
-    
-    //milestone 1
-    {
-        gamma0 = theory.createMilestoneUpgrade(0, 6); //create an upgrade of ID 0 and max level 3
-        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //set desc as localisation of "increases rho_2 exponent by 0.02"
-        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", gamma0.level <=3 ? "0.02" : "0.00075"); //basically the same but for info button
-        // gamma0.boughtOrRefunded = (_) =>  updateGamma0(); // if bought or refunded, call the update function
+    //// Milestone Upgrades	
+    theory.setMilestoneCost(new LinearCost(2.5, 2.5)); //c = 25*x + 25, i.e rewards a milestone every 25 log10(tau)	
+    //milestone 1	
+    {	
+        gamma0 = theory.createMilestoneUpgrade(0, 3); //create an upgrade of ID 0 and max level 3	
+        gamma0.description = Localization.getUpgradeIncCustomExpDesc("\\rho_2", "0.02"); //set desc as localisation of "increases rho_2 exponent by 0.02"	
+        gamma0.info = Localization.getUpgradeIncCustomExpInfo("\\rho_2", "0.02"); //basically the same but for info button	
+        gamma0.boughtOrRefunded = (_) => theory.invalidatePrimaryEquation(); //if bought/refunded, force a refresh of the equation	
+    }	
+    //milestone 2	
+    //TODO change it to a localisation of decreases lol	
+    {	
+        gamma1 = theory.createMilestoneUpgrade(1, 5); //create an upgrade of ID 1 and max level 5	
+        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3","0.008"); //set desc as localisation of "decreases a3 by 0.008"	
+        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3","0.008"); //basically the same but for info button	
+        gamma1.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation	
+    }	
+    	
+    //milestone 3	
+    {	
+        gamma2 = theory.createMilestoneUpgrade(2, 2); //create an upgrade of ID 2 and max level 2	
+        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", "0.02"); //set desc as localisation of "increases b1 exponent by 0.02"	
+        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1", "0.02"); //basically the same but for info button	
+        gamma2.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation	
+    }	
+    //milestone 4	
+    {	
+        gamma3 = theory.createMilestoneUpgrade(3, 2); //create an upgrade of ID 3 and max level 2	
+        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", "0.02"); //set desc as localisation of "increases b2 exponent by 0.02"	
+        gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", "0.02"); //basically the same but for info button	
+        gamma3.boughtOrRefunded = (_) => theory.invalidateSecondaryEquation(); //if bought/refunded, force a refresh of the equation	
     }
-
-    //milestone 2
-    {
-        gamma1 = theory.createMilestoneUpgrade(1, 13); //create an upgrade of ID 1 and max level 5
-        gamma1.description = Localization.getUpgradeDecCustomDesc("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //set desc as localisation of "decreases a3 by 0.008"
-        gamma1.info = Localization.getUpgradeDecCustomInfo("a_3",gamma1.level <=5 ? "0.008" : "0.00075"); //basically the same but for info button
-        // gamma1.boughtOrRefunded = (_) => updateGamma1(); //if bought/refunded, force a refresh of the equation
-    }
-
-    //milestone 3
-    {
-        gamma2 = theory.createMilestoneUpgrade(2, 4); //create an upgrade of ID 2 and max level 2
-        gamma2.description = Localization.getUpgradeIncCustomExpDesc("b_1", gamma2.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b1 exponent by 0.02"
-        gamma2.info = Localization.getUpgradeIncCustomExpInfo("b_1",gamma2.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
-        // gamma2.boughtOrRefunded = (_) => updateGamma2(); //if bought/refunded, force a refresh of the equation
-    }
-
-    //milestone 4
-    {
-        gamma3 = theory.createMilestoneUpgrade(3, 4); //create an upgrade of ID 3 and max level 2
-        gamma3.description = Localization.getUpgradeIncCustomExpDesc("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //set desc as localisation of "increases b2 exponent by 0.02"
-        gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2", gamma3.level <=2 ? "0.02" : "0.00075"); //basically the same but for info button
-        // gamma3.boughtOrRefunded = (_) => updateGamma3(); //if bought/refunded, force a refresh of the equation
-    }        
 
     //utilities
     // var bsf={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'\=",e:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=bsf._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},d:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=bsf._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}};
@@ -851,9 +850,9 @@ var init = () => {
     chapter6 = theory.createStoryChapter(6, locale.story.chapter7.title,locale.story.chapter7.body, () => currency.value >= BigNumber.From("1e500"));
     chapter7 = theory.createStoryChapter(7, locale.story.chapter8.title, locale.story.chapter8.body, () => currency.value >= BigNumber.From("1e1000"));
 
-    updateGamma0(); updateGamma1(); updateGamma2(); updateGamma3();
+    //updateGamma0(); updateGamma1(); updateGamma2(); updateGamma3();
 }
-
+/*
 var updateGamma0 = () => { //reset the info, desc and equation
     rho2exp = Number.parseFloat((gamma0.level <=3 ? 1+gamma0.level*0.02 : 1.06 + (gamma0.level-3)*0.00075).toPrecision(6));
     rho2expDisp = gamma0.level == 0 ? '' : rho2exp
@@ -900,16 +899,15 @@ var updateInverseE_Gamma = () => {
         inverseE_Gamma = ((r.exp() - r).exp() - BigNumber.from(0.5)) / BigNumber.E; //xelaroc's approximation of the approximation - fixed to work at high values
     }
 }
+*/
 
-// var doUpdatePopup = () => {
-//     updatePopup.show()
-// }
-// var checkPopup = () => {
-//     if (showPopUp && !game.isCalculatingOfflineProgress) {
-//         showPopUp = false;
-//         showUpdatePopup();
-//     }
-// }
+
+var checkPopup = () => {
+    if (showPopUp && !game.isCalculatingOfflineProgress) {
+        showPopUp = false;
+        showUpdatePopup();
+    }
+}
 
 var showUpdatePopup = () => {
     updatePopup = ui.createPopup({
@@ -917,17 +915,17 @@ var showUpdatePopup = () => {
         content: ui.createScrollView({
             content: ui.createStackLayout({
                 children: [
-                    ui.createLabel({
-                        text:'Version 1.2.0 BETA',
-                        fontAttributes:FontAttributes.BOLD,
-                        horizontalTextAlignment:TextAlignment.CENTER,
-                        fontSize:20,
-                    }),
-                    ui.createLabel({
-                        text:'\u2022 Added new milestone levels \n\u2022 Further optimised calculation time \n\u2022 Made changes for the UI to move clutter\n\u2022 Added a "What\'s New" popup - thank you Gilles-Philippe!\n\u2022 Changed the symbol for the first currency to have no subscript\n\u2022 Removed liver',
-                        lineHeight:1,
-                        fontSize: 15
-                    }),
+                    // ui.createLabel({
+                    //     text:'Version 1.2.0 BETA',
+                    //     fontAttributes:FontAttributes.BOLD,
+                    //     horizontalTextAlignment:TextAlignment.CENTER,
+                    //     fontSize:20,
+                    // }),
+                    // ui.createLabel({
+                    //     text:'\u2022 Added new milestone levels \n\u2022 Further optimised calculation time \n\u2022 Made changes for the UI to move clutter\n\u2022 Added a "What\'s New" popup - thank you Gilles-Philippe!\n\u2022 Changed the symbol for the first currency to have no subscript\n\u2022 Removed liver',
+                    //     lineHeight:1,
+                    //     fontSize: 15
+                    // }),
                     ui.createLabel({
                         text:'\nVersion 1.1.2',
                         fontAttributes:FontAttributes.BOLD,
@@ -935,7 +933,7 @@ var showUpdatePopup = () => {
                         fontSize:20,
                     }),
                     ui.createLabel({
-                        text:'\u2022 Added support for German - Thank you to AfuroZamurai for translating!\n\u2022 Fixed the achievement 7 trigger condition\n\u2022 Made the SA1 achievement more lenient to obtain\n\u2022 Optimised the theory to reduce offline time somewhat\n\u2022 Fixed typographical errors - thank you to AfuroZamurai and Spqcey',
+                        text:'\u2022 Added support for German - Thank you to AfuroZamurai for translating!\n\u2022 Fixed the achievement 7 trigger condition\n\u2022 Made the SA1 achievement more lenient to obtain\n\u2022 Optimised the theory to reduce offline time somewhat\n\u2022 Fixed typographical errors - thank you to AfuroZamurai and Spqcey\n\u2022 Added a "What\'s New" popup - thank you Gilles-Philippe!\n\u2022 Changed the symbol for the first currency to have no subscript\n\u2022 Removed liver',
                         lineHeight:1,
                         fontSize: 15
                     }),
@@ -1029,7 +1027,7 @@ var showUpdatePopup = () => {
         // onDisappearing: () => log('skunch'),
     })
     updatePopup.show();
-    // setInternalState(theory.state);
+    setInternalState(theory.state);
 }
 
 
@@ -1037,82 +1035,46 @@ var showUpdatePopup = () => {
 //function that runs every tick, i.e tick math
 //DO NOT TOUCH ON PAIN OF DEATH. YES THIS MEANS YOU, FUTURE ME
 var tick = (elapsedTime, multiplier) => {
-    // checkPopup();
-    let dt = BigNumber.from(elapsedTime * multiplier); //find tick time
-    
-    if (gamma0.level != g0lp){
-        g0lp = gamma0.level
-        updateGamma0();
-    }
-    if (gamma1.level != g1lp){ //update the stored a3 value if the gamma level changes. Required for an edge case
-        g1lp = gamma1.level
-        updateGamma1();
-    }
-    if (gamma2.level != g1lp){
-        g2lp = gamma2.level
-        updateGamma2();
-    }
-    if (gamma3.level != g3lp){
-        g2lp = gamma2.level
-        updateGamma3();
-    }
-
-    rho3dot = getb1(b1.level).pow(b1exp) * getb2(b2.level).pow(b2exp); //rho3dot is equal to b1.value * b2.value accounting for exponenents
-    currency3.value += rho3dot*dt; //increase currency3.value by rho3dot*dt
-    updateInverseE_Gamma();
-   
-    //rho2dot equation that supports higher values without crashing lol
-    let a1v = geta1(a1.level), a2v = geta2(a2.level);
-//    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones
-    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (BigNumber.from(a3v) * currency3.value.log()) ) : BigNumber.ZERO;
-    currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt
-    rho1dot = (currency2.value.pow(BigNumber.from(rho2exp))).sqrt()*(inverseE_Gamma); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation
-    currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus
-    
-    t += elapsedTime;
-    theory.invalidateTertiaryEquation();
-    
+    checkPopup();	
+    let dt = BigNumber.from(elapsedTime * multiplier); //find tick time	
+    	
+    rho3dot = (getb1(b1.level).pow(1 + gamma2.level*0.02) * getb2(b2.level).pow(1 + gamma3.level*0.02)); //rho3dot is equal to b1.value * b2.value accounting for exponenents	
+    currency3.value += rho3dot*dt; //increase currency3.value by rho3dot*dt	
+    updateInverseE_Gamma();	
+   	
+    //rho2dot equation that supports higher values without crashing lol	
+    let a1v = geta1(a1.level), a2v = geta2(a2.level);	
+//    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones	
+    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (2-gamma1.level*0.008).log() * (currency3.value).log() ) : BigNumber.ZERO;	
+    currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt	
+    rho1dot = (currency2.value.pow(1+gamma0.level*0.02).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation	
+    currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus	
+    	
+    t += elapsedTime;	
+    theory.invalidateTertiaryEquation();	
+    	
 }
 
-//display rho1dot equation
 var getPrimaryEquation = () => { //text for the primary equation
-    let result = "\\dot{\\rho} =";
-    // result += '\\frac{c_3 e^{-a_3} }{1 + e^{\\rho_4}} \\cdot ';
-    result += '\\frac{\\sqrt{\\rho_2';
-    result += gamma0.level == 0 ? '' : '^{' + rho2expDisp + '}';
-    // result +=  gamma0.level == 0 ? '' : ('^{' + (gamma0.level <=3 ? (1+gamma0.level*0.02).toFixed(2) : (1.06 + (gamma0.level-3)*0.00075).toFixed(4 + (gamma0.level-3) % 2)) + '}')
 
-    /*—————————————No switches?——————————————
-    ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
-    ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
-    ⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
-    ⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
-    ⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
-    ⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀                */
-    // switch (gamma0.level){                   //switch statement based on milestone 1 to add an exponent to rho2
-    //     //should probably use something else but i tried using just a (gamma0.level*0.1).toString(1) and it threw a hissy fit
-    //     case 1:
-    //         result += "^{1.02}";
-    //         break;
-    //     case 2:
-    //         result += "^{1.04}";
-    //         break;
-    //     case 3:
-    //         result += "^{1.06}";
-    //         break;    
-    // }
+    let result = "\\dot{\\rho}_1 = \\frac{\\sqrt{\\rho_2";
+    switch (gamma0.level){ //switch statement based on milestone 1 to add an exponent to rho2
+        //should probably use something else but i tried using just a (gamma0.level*0.1).toString(1) and it threw a hissy fit
+        case 1:
+            result += "^{1.02}";
+            break;
+        case 2:
+            result += "^{1.04}";
+            break;
+        case 3:
+            result += "^{1.06}";
+            break;    
+    }
     result +="}}{e-\\gamma}";  //close off the square root and add the denominator
 
     //show the approximated value equation
-    result += "\\quad \\gamma = \\frac{\\rho_3}{\\sqrt[^{\\rho_3}]{\\rho_3 !}}";
-    result += "\\quad" + theory.latexSymbol + "= \\max{\\rho}^{0.1}"; 
+    result += "\\qquad \\gamma = \\frac{\\rho_3}{\\sqrt[^{\\rho_3}]{\\rho_3 !}}";
+    result += "\\qquad" + theory.latexSymbol + "= \\max{\\rho_1}^{0.1}"; 
     return result; //return the sum of text
 }   
 
@@ -1123,76 +1085,65 @@ var getSecondaryEquation = () => {
 
 
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
-    result += '^{' + b1expDisp + '}\\,'
-    // result += gamma2.level == 0 ? '' : ('^{' + (gamma2.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma2.level-2)*0.00075).toFixed(4 + (gamma2.level-3) % 2)) + '}\\,')
-    // switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
-    //     case 1:
-    //         result+= "^{\\!1.02}\\!";
-    //         break;
-    //     case 2:
-    //         result+= "^{\\!1.04}\\!";
-    //         break;
-    // }
-    result += "b_2"; //add b2
-    result += '^{' + b2expDisp + '}\\,' 
-
-    // result += '\\qquad \\dot{\\rho}_4 = c_1 c_2'
-    // result += gamma3.level == 0 ? '' : ('^{' + (gamma3.level <=2 ? (1+gamma0.level*0.02).toFixed(2) : (1.04 + (gamma3.level-2)*0.00075).toFixed(4 + (gamma3.level-3) % 2)) + '}');
-    // switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
-    //     case 1:
-    //         result+= "^{\\!1.02}\\!";
-    //         break;
-    //     case 2:
-    //         result+= "^{\\!1.04}\\!";
-    //         break;
-    // }
-    
-    // result += "\\; "; //add a space
+    switch (gamma2.level){ //switch statemement based on the third milestone (b1 exponent) to add exponents if the milestone level is 1 - 4
+        case 1:
+            result+= "^{\\!1.02}\\!";
+            break;
+        case 2:
+            result+= "^{\\!1.04}\\!";
+            break;
+    }
+    result += "b_2"; //add b2 
+    switch (gamma3.level){ //switch statemement based on the fourth milestone (b2 exponent) to add exponents if the milestone level is 1 - 4
+        case 1:
+            result+= "^{\\!1.02}\\!";
+            break;
+        case 2:
+            result+= "^{\\!1.04}\\!";
+            break;
+    }
+    result += "\\qquad "; //add a space
 
     //render a_3 = 2.x
-    
-    // switch (gamma1.level){ //switch statement based on milestone 2 to change the displayed value of a3
-    //     case 0:
-    //         result += "2";
-    //         break;
-    //     case 1:
-    //         result += "1.992";
-    //         break;
-    //     case 2:
-    //         result += "1.984";
-    //         break;
-    //     case 3:
-    //         result += "1.976";
-    //         break;
-    //     case 4:
-    //         result += "1.968";
-    //         break;
-    //     case 5:
-    //         result += "1.96";
-    //         break;      
-    return result;      
+    result += "a_3 = "; //render a3=
+    switch (gamma1.level){ //switch statement based on milestone 2 to change the displayed value of a3
+        case 0:
+            result += "2";
+            break;
+        case 1:
+            result += "1.992";
+            break;
+        case 2:
+            result += "1.984";
+            break;
+        case 3:
+            result += "1.976";
+            break;
+        case 4:
+            result += "1.968";
+            break;
+        case 5:
+            result += "1.96";
+            break;            
+    }
+    return result; //return the sum of text
 }
-  
+
 //display values considered useful that aren't in the currency bar
 var getTertiaryEquation = () => {
     let result = "e - \\gamma = ";
-    if(inverseE_Gamma <= 10000){ //arbitrary number that xelaroc said was ok
+    if(inverseE_Gamma <= 10000) //arbitrary number that xelaroc said was ok
     result += (BigNumber.ONE/inverseE_Gamma).toString(4);
-    } else { //wizard fuckery. note to future self: do not touch
-        let exp = 1+Math.floor(inverseE_Gamma.log10().toNumber()),
+else { //wizard fuckery. note to future self: do not touch
+    let exp = 1+Math.floor(inverseE_Gamma.log10().toNumber()),
         mts = ((BigNumber.TEN.pow(exp)/inverseE_Gamma).toString());
-        result += `${mts}e\\text{-}${exp}`
-    }
+    result += `${mts}e\\text{-}${exp}`
+}
     result +=", \\;\\dot{\\rho}_2 = "; //display rho2dot to a degree of granularity depending on its size, then move to next segment 
     result += rho2dot.toString(3);
 
     result += ", \\;\\dot{\\rho}_3 = "; //display rho3dot to a degree of granularity depending on its size, then move to next segment 
     result += rho3dot.toString(3);
-
-    result += ", \\;a_3 = "; //render a3=
-    result += a3v
-    
-    // result += gamma1.level == 0 ? '2' : (gamma1.level <=5 ? (2 - gamma1.level*0.008).toFixed(2 + Math.min(gamma1.level % 5,1)) : (1.96 - (gamma1.level-5)*0.00075).toFixed(4 + Math.min(((gamma1.level-5) % 2) + Math.min(1,(gamma1.level-5) % 4) - ((gamma1.level-4) % 2),1 ) ));
 
     return result ; //return the sum of text    
 
@@ -1206,7 +1157,9 @@ var getEquationOverlay = () => ui.createGrid({ //taken from Probability Theory
 })
 
 var postPublish = ()  => {
-    liver = 'stolen'
+    if (Math.random() >= 0.5){
+        liver = 'stolen'
+    }
     //force update all equations
     theory.invalidatePrimaryEquation(); 
     theory.invalidateSecondaryEquation();
