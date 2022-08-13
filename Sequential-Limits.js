@@ -1,9 +1,9 @@
 ﻿﻿//abandon all hope, ye who wish to see quality code.
 
-//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768),  and Gilles-Philippe Paillé(#0778).
+//uses code from ductdat (ducdat0507#4357), xelaroc (alexcord#6768), and Gilles-Philippe Paillé(#0778).
 //thank you to playspout and xelaroc for developing strategies/sims for this theory and giving me invaluable data
 //If you'd like help with your own custom theory, or want to ask about this mess, you can contact me by pinging @ellipsis in #custom-theories-dev in the exponential idle discord server (discord.gg/BGmFwUdBWv).
-//or add me on discord (@ellipsis#1984) but ill probably change the #
+//or add me on discord (@ellipsis#1984)
 //a desmos graph for the current theory balance can be found at desmos.com/calculator/s9wjqmemkf
 
 //COMMENTS ARE LIKELY OUTDATED
@@ -667,8 +667,8 @@ if (localisationTable[Localization.language]){ //if it's in the localisation tab
 }
 else locale = localisationTable.en;
 
-var id = "SequentialLimits-Test"; //must be unique, make sure to change it 
-var name = 'Sequential Limits' //dummy, as the game won't allow anything other than a literal for first load
+var id = "SequentialLimits"; //must be unique, make sure to change it 
+var name = 'Sequential Limits' //dummy, as the game won't allow anything other than a literal for first load... i think?
 var description = "You're the first student of the now-retired professor, and now that they've retired, you're given the mantle of chief researcher. Eager to dive into fields where your old professor dove off, you start looking into the concept explored in the seventh lemma - sequential limits - to further your career.\n\nThis theory explores the concept of approximations using a rearrangement of Stirling's Formula to approximate Euler's number.\nThe formula, named after James Stirling and first stated by Abraham De Moivre, states that ln(n!) can be approximated by the infinite sum ln(1) + ln(2) .... + ln(n).\nBe careful - the closer your approximation of Euler's number is, the less your numerator grows!\nA close balancing game, fun for the whole family (or at least, the ones who play Exponential Idle). \n\nSpecial thanks to:\n\nGilles-Philippe, for development of the custom theory SDK, implementing features I requested, providing countless script examples, and help with my numerous questions and balancing.\n\nXelaroc/AlexCord, for answering my neverending questions, debugging and helping me understand how to balance a theory, and going above and beyond to teach me how custom theories work.\n\nThe Exponential Idle beta testing team\n- The Exponential Idle translation team, who's work I added to, and without which this game wouldn't have the reach it does.\n\nEnjoy!" //ditto
 var authors = 'ellipsis' //ditto again
 var version = 10; //version id, make sure to change it on update
@@ -690,7 +690,7 @@ var t = 0;
 
 var liver = 'not stolen' //joke variable
 // var lastKnownVersion = 9
-// var showPopUp = false;
+var showPopUp = true;
 
 function isPalindrome(x) { //it probably sucks but also i just copied it from a past project
     // console.log('recieved string ' + x)
@@ -888,6 +888,7 @@ var updateGamma3 = () => {
     gamma3.info = Localization.getUpgradeIncCustomExpInfo("b_2",n);
     theory.invalidateSecondaryEquation();        
 }
+*/
 
 var updateInverseE_Gamma = () => {
     let two_pi_rho = BigNumber.TWO * BigNumber.PI * currency3.value; //precalculation of values for tick function
@@ -899,7 +900,7 @@ var updateInverseE_Gamma = () => {
         inverseE_Gamma = ((r.exp() - r).exp() - BigNumber.from(0.5)) / BigNumber.E; //xelaroc's approximation of the approximation - fixed to work at high values
     }
 }
-*/
+
 
 
 var checkPopup = () => {
@@ -933,7 +934,7 @@ var showUpdatePopup = () => {
                         fontSize:20,
                     }),
                     ui.createLabel({
-                        text:'\u2022 Added support for German - Thank you to AfuroZamurai for translating!\n\u2022 Fixed the achievement 7 trigger condition\n\u2022 Made the SA1 achievement more lenient to obtain\n\u2022 Optimised the theory to reduce offline time somewhat\n\u2022 Fixed typographical errors - thank you to AfuroZamurai and Spqcey\n\u2022 Added a "What\'s New" popup - thank you Gilles-Philippe!\n\u2022 Changed the symbol for the first currency to have no subscript\n\u2022 Removed liver',
+                        text:'\u2022 Added a "What\'s New" popup - thank you Gilles-Philippe!\n\u2022 Added support for German - Thank you to AfuroZamurai for translating!\n\u2022 Fixed the achievement 7 trigger condition\n\u2022 Made the SA1 achievement more lenient to obtain\n\u2022 Optimised the theory to reduce offline time a bit\n\u2022 Fixed typographical errors - thank you to AfuroZamurai and Spqcey\n\u2022 Changed the symbol for the first currency to have no subscript\n\u2022 Rearranged secondary equation - Thank you to propsuki for the suggestion!\n\u2022 Removed liver',
                         lineHeight:1,
                         fontSize: 15
                     }),
@@ -988,7 +989,7 @@ var showUpdatePopup = () => {
                         fontSize:20,
                     }),
                     ui.createLabel({
-                        text:'\u2022 Fixed achivement 6 to actually trigger.\u2022 Corrected the publication requirements for publication based achievements',
+                        text:'\u2022 Fixed achivement 6 to actually trigger.\n\u2022 Corrected the publication requirements for publication based achievements',
                         lineHeight:1,
                         fontSize: 15
                     }),
@@ -1016,18 +1017,15 @@ var showUpdatePopup = () => {
                     }),
                     ui.createButton({
                         text:'Close',
-                        onClicked: () => {
-                            updatePopup.hide()
-                        }
+                        onClicked: () => {updatePopup.hide()}
                     })
 
                 ]    
             }),
         }),
-        // onDisappearing: () => log('skunch'),
+        // onDisappearing: () => {setInternalState(theory.state)},
     })
     updatePopup.show();
-    setInternalState(theory.state);
 }
 
 
@@ -1045,7 +1043,7 @@ var tick = (elapsedTime, multiplier) => {
     //rho2dot equation that supports higher values without crashing lol	
     let a1v = geta1(a1.level), a2v = geta2(a2.level);	
 //    rho2dot =(geta1(a1.level) * geta2(a2.level) * (BigNumber.TWO-gamma1.level*0.004).pow( - currency3.value.log() )); //calculate rho2dot, accounting for milestones	
-    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - (2-gamma1.level*0.008).log() * (currency3.value).log() ) : BigNumber.ZERO;	
+    rho2dot = a1v > 0 && a2v > 0 ? BigNumber.E.pow(a1v.log() + a2v.log() - Math.log(2-gamma1.level*0.008) * (currency3.value).log() ) : BigNumber.ZERO;	
     currency2.value += dt * rho2dot; //increase rho2 by rho2dot by dt	
     rho1dot = (currency2.value.pow(1+gamma0.level*0.02).sqrt()*(inverseE_Gamma)); //rho1dot is equal to the root of rho2^milestone, over the difference between E and stirling's approximation	
     currency.value += dt * theory.publicationMultiplier * rho1dot; //increase rho1 by rho1dot by dt, accounting for pub bonus	
@@ -1081,7 +1079,33 @@ var getPrimaryEquation = () => { //text for the primary equation
 //display rho2dot, rho3dot and a_3 equation
 var getSecondaryEquation = () => { 
     //render rho2dot equation
-    result = "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\qquad "; //static, doesn't need to change. plain latex
+
+    //render a_3 = 2.x
+    result = "a_3 = "; //render a3=
+    switch (gamma1.level){ //switch statement based on milestone 2 to change the displayed value of a3
+        case 0:
+            result += "2";
+            break;
+        case 1:
+            result += "1.992";
+            break;
+        case 2:
+            result += "1.984";
+            break;
+        case 3:
+            result += "1.976";
+            break;
+        case 4:
+            result += "1.968";
+            break;
+        case 5:
+            result += "1.96";
+            break;            
+    }
+    result += "\\qquad"
+
+
+    result += "\\dot{\\rho}_2 = a_1 a_2 \\cdot a_3 ^{ - \\ln\\rho_3}\\qquad"; //static, doesn't need to change. plain latex
 
 
     result += "{\\dot{\\rho}}_3 = b_1"; // first part of eq, i.e rho3dot = b1
@@ -1104,28 +1128,6 @@ var getSecondaryEquation = () => {
     }
     result += "\\qquad "; //add a space
 
-    //render a_3 = 2.x
-    result += "a_3 = "; //render a3=
-    switch (gamma1.level){ //switch statement based on milestone 2 to change the displayed value of a3
-        case 0:
-            result += "2";
-            break;
-        case 1:
-            result += "1.992";
-            break;
-        case 2:
-            result += "1.984";
-            break;
-        case 3:
-            result += "1.976";
-            break;
-        case 4:
-            result += "1.968";
-            break;
-        case 5:
-            result += "1.96";
-            break;            
-    }
     return result; //return the sum of text
 }
 
@@ -1179,11 +1181,11 @@ var setInternalState = (state) => { //set the internal state of values that need
     if (values.length > 2) tapCount = parseInt(values[2]);
     if (values.length > 3) t = Number.parseFloat(values[3]);
     if (values.length > 4) liver = values[4];
-    if (values.length > 5) saveVersion = parseInt(values[5]);
+    // if (values.length > 5) saveVersion = parseInt(values[5]);
 
-    if (saveVersion != version){
-        showUpdatePopup();
-    }
+    // if (saveVersion != version){
+    //     showUpdatePopup();
+    // }
 }
 
 var getInternalState = () => `${numPublications} ${inverseE_Gamma} ${tapCount} ${t} ${liver} ${version}` //return the data saved

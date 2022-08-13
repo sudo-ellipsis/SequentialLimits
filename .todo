@@ -1,23 +1,9 @@
-1.2.0:
-update the update popup method to gilles's
-rebalance v2
-make rho1 rho, remove the symbol (ask nubest)
-Limit new milestone purchases to all mainline milestone purchases before 1k
 Add more progression achievements
-Add 5 more story chapters (Milestone 13, 1100, 1250, Milestone 27, 1500, 2000)
-add update popup
-
-1.2.1:
-add a thanks to skyhigh for doing so much bug testing lmao
+Add more story chapters (1100, 1250, 1500)
 SA for all other achievement unlocks
-
-1.2.2:
-add optional info popup
 fix the translation sheet to have updated strings
-rework getName, getDescription etc
 refactor theory to be less slow
 find better way to credit translators (info popup?)
-
-General:
-clean out old commented debug code
+add description to translation sheet (if possible)
+add update popup to translation sheet (if possible)
 re-comment theory
